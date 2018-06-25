@@ -12,6 +12,7 @@ pycparser==2.18
 PyNaCl==1.1.2
 requests==2.19.1
 six==1.11.0
+SQLAlchemy==1.2.8
 urllib3==1.23
 websockets==5.0.1
 yarl==1.2.6

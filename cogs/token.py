@@ -10,6 +10,9 @@ class Token:
 
     @commands.command()
     async def token(self, ctx):
+        """
+        Get the WoW token price of your region
+        """
         token_request = requests.get("https://data.wowtoken.info/snapshot.json")
         token_json = token_request.json()
         if "NA" in token_json:
