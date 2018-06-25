@@ -1,6 +1,8 @@
 import json
 import logging
 import os
+import sys
+import traceback
 
 from discord.ext import commands
 from sqlalchemy import create_engine, Column, String, Integer
@@ -11,7 +13,8 @@ logging.basicConfig(level=logging.INFO)
 
 initial_extensions = {
     "cogs.worldofwarcraft",
-    "cogs.meta"
+    "cogs.meta",
+    "cogs.custom_commands"
 }
 
 
@@ -29,7 +32,7 @@ def _prefix_callable(bot, msg):
 
 
 # SQL Init
-engine = create_engine('sqlite:///:memory:', echo=True)
+engine = create_engine('sqlite:///:memory:')
 Base = declarative_base()
 
 
@@ -66,7 +69,8 @@ class LegendaryBot(commands.AutoShardedBot):
         elif isinstance(error, commands.BadArgument):
             await ctx.author.send(error)
         else:
-            print(error)
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            traceback.print_exception(exc_type, error, exc_traceback)
 
     def add_guild_prefix(self, guild: Guild, prefix: str):
         """
