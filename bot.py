@@ -10,7 +10,7 @@ from sqlalchemy.orm import sessionmaker
 logging.basicConfig(level=logging.INFO)
 
 initial_extensions = {
-    "cogs.token",
+    "cogs.worldofwarcraft",
     "cogs.meta"
 }
 
@@ -25,7 +25,6 @@ def _prefix_callable(bot, msg):
         base.extend(prefixes)
     elif msg.guild:
         base.append("!")
-    print(base)
     return base
 
 
@@ -59,7 +58,17 @@ class LegendaryBot(commands.AutoShardedBot):
     async def on_ready(self):
         print('Logged in as %s - %s' % (self.user.name, self.user.id))
 
-    def add_guild_prefix(self, guild, prefix):
+    async def on_command_error(self, ctx, error):
+        if isinstance(error, commands.NoPrivateMessage):
+            await ctx.author.send('This command cannot be used in private messages.')
+        elif isinstance(error, commands.DisabledCommand):
+            await ctx.author.send('Sorry. This command is disabled and cannot be used.')
+        elif isinstance(error, commands.BadArgument):
+            await ctx.author.send(error)
+        else:
+            print(error)
+
+    def add_guild_prefix(self, guild: Guild, prefix: str):
         """
         Add a prefix to the Guild
         :param guild: (Guild) A instance of a Discord Guild
@@ -78,7 +87,7 @@ class LegendaryBot(commands.AutoShardedBot):
             return True
         return False
 
-    def remove_guild_prefix(self, guild, prefix):
+    def remove_guild_prefix(self, guild: Guild, prefix: str):
         """
         Remove a prefix from a discord Guild
         :param guild: (Guild) A instance of a Discord Guild
@@ -92,22 +101,23 @@ class LegendaryBot(commands.AutoShardedBot):
             return True
         return False
 
-    def get_guild_setting(self, guild, setting_key):
+    def get_guild_setting(self, guild: Guild, setting_key: str, default_value = None):
         """
         Retrieve the setting of a Guild
         :param guild: (Guild) A instance of a Discord Guild
         :param setting_key: (str) The key to retrieve
+        :param default_value: The value to return when no value is found in the database
         :return: A JSON value (Can be object, Array, etc.) or None if the setting is not found.
         """
-        if guild is None:
-            return None
-        guild = session.query(Guild).filter_by(id=guild.id).first()
-        if guild:
-            guild_json = json.loads(guild.json)
-            if setting_key in guild_json:
-                return guild_json[setting_key]
+        if guild is not None:
+            guild_database = session.query(Guild).filter_by(id=guild.id).first()
+            if guild_database:
+                guild_json = json.loads(guild_database.json)
+                if setting_key in guild_json:
+                    return guild_json[setting_key]
+        return default_value
 
-    def set_guild_setting(self, guild, setting_key, value):
+    def set_guild_setting(self, guild: Guild, setting_key: str, value: dict):
         """
         Set a guild setting
         :param guild: The guild object
@@ -115,28 +125,23 @@ class LegendaryBot(commands.AutoShardedBot):
         :param value: A Python dict
         :return: None
         """
-        guild = session.query(Guild).filter_by(id=guild.id).first()
-        if guild:
-            guild_json = json.loads(guild.json)
+        guild_database = session.query(Guild).filter_by(id=guild.id).first()
+        if guild_database:
+            guild_json = json.loads(guild_database.json)
             guild_json[setting_key] = value
-            guild.json = json.dumps(guild_json)
+            guild_database.json = json.dumps(guild_json)
             session.commit()
         else:
             guild_json = {
                 setting_key: value
             }
-            guild = Guild()
-            guild.id = guild.id
-            guild.json = json.dumps(guild_json)
-            session.add(guild)
+            guild_database = Guild()
+            guild_database.id = guild.id
+            guild_database.json = json.dumps(guild_json)
+            session.add(guild_database)
             session.commit()
 
 
-guild_settings = {
-    "prefix": ["??"]
-}
-guild_temp = Guild(id=214483665311236096, json=json.dumps(guild_settings))
-session.add(guild_temp)
 # Loading the bot
 client = LegendaryBot()
 client.run(os.getenv("BOT_TOKEN"))
