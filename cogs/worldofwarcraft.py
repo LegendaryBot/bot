@@ -40,8 +40,8 @@ class WoW:
             embed.add_field(name="Percentage 24H Range", value="%s %%" % region_json['24pct'])
             await ctx.send(embed=embed)
 
-    @commands.command(name="status", aliases=["server"])
-    async def get_realm_status(self, ctx, realm: str = None):
+    @commands.command(name="status", aliases=["server"], rest_is_raw = True)
+    async def get_realm_status(self, ctx, *realm: str):
         """
         Get the status of a World of Warcraft realm.
 
@@ -53,7 +53,8 @@ class WoW:
             realm = get_guild_realm(ctx.guild)
             if realm is None:
                 raise commands.BadArgument('You are required to type a realm.')
-
+        else:
+            realm = " ".join(realm)
         realm_slug = slugify(realm)
         region = self.bot.get_guild_setting(ctx.guild, 'REGION_NAME', 'US')
         oauth = battlenet_util.get_battlenet_oauth(region)
@@ -95,6 +96,10 @@ class WoW:
         else:
             embed.colour = Colour.red()
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def lookup(self, character_name: str, ):
+        print("lol")
 
 def setup(bot):
     bot.add_cog(WoW(bot))

@@ -45,6 +45,11 @@ class Guild(Base):
     def __repr__(self):
         return "<Guild(id='%s', json='%s'>" % (self.id, self.json)
 
+class User(Base):
+    __tablename__ = 'user'
+
+    id = Column(Integer, primary_key=True)
+
 
 Base.metadata.create_all(engine)
 session = sessionmaker(bind=engine)()
