@@ -20,7 +20,8 @@ logging.basicConfig(level=logging.INFO)
 initial_extensions = {
     "cogs.worldofwarcraft",
     "cogs.meta",
-    "cogs.custom_commands"
+    "cogs.custom_commands",
+    "cogs.fun"
 }
 
 

@@ -39,6 +39,8 @@ class WoW:
             embed.add_field(name="Maximum 24H", value=region_json['24max'], inline=True)
             embed.add_field(name="Percentage 24H Range", value="%s %%" % region_json['24pct'])
             await ctx.send(embed=embed)
+        else:
+            raise commands.BadArgument('Region not found. Supported regions are: NA/EU/CN/TW/KR')
 
     @commands.command(name="status", aliases=["server"], rest_is_raw = True)
     async def get_realm_status(self, ctx, *realm: str):
