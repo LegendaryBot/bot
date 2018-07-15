@@ -1,5 +1,6 @@
 from discord import Embed, Colour
 from discord.ext import commands
+from lbwebsite.models import GuildPrefix
 
 from utils import checks
 
@@ -23,10 +24,10 @@ class Meta:
         """Manages the Guild's custom prefixes.
         If called without a subcommand, this will list the currently set prefixes.
         """
-        prefixes = self.bot.get_guild_setting(ctx.guild, 'prefixes')
+        prefixes = GuildPrefix.objects.filter(guild_id=ctx.guild.id).all()
         embed = Embed(title='LegendaryBot prefixes configured.', colour=Colour.blurple())
         if prefixes:
-            embed.description = '\n'.join(f'{prefix}' for prefix in prefixes)
+            embed.description = '\n'.join(f'{prefix.prefix}' for prefix in prefixes)
         else:
             embed.description = "No prefixes set."
         await ctx.message.author.send(embed=embed)
@@ -34,7 +35,7 @@ class Meta:
     @prefix.command(name='add')
     @checks.is_bot_admin()
     @commands.guild_only()
-    async def prefix_add(self, ctx, prefix: Prefix):
+    async def prefix_add(self, ctx, prefix: str):
         """
         Add a prefix to the list of custom prefixes for this Discord server.
 
@@ -44,7 +45,10 @@ class Meta:
         - The legendarybot-admin role.
         - The Manage Server or the Administrator permission.
         """
-        if self.bot.add_guild_prefix(ctx.guild, prefix):
+        prefix_entry = GuildPrefix.objects.filter(guild_id=ctx.guild.id, prefix=prefix).first()
+        if not prefix_entry:
+            prefix_entry = GuildPrefix(guild_id=ctx.guild.id, prefix=prefix)
+            prefix_entry.save()
             await ctx.send(f"Prefix {prefix} added to the server.")
         else:
             await ctx.send(f"Prefix {prefix} not set. Already existing.")
@@ -60,7 +64,9 @@ class Meta:
         - The legendarybot-admin role.
         - The Manage Server or the Administrator permission.
         """
-        if self.bot.remove_guild_prefix(ctx.guild, prefix):
+        prefix_entry = GuildPrefix.objects.filter(guild_id=ctx.guild.id, prefix=prefix).first()
+        if prefix_entry:
+            prefix_entry.delete()
             await ctx.send(f"Prefix {prefix} removed from the server")
         else:
             await ctx.send(f"Prefix {prefix} does not exist.")

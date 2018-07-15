@@ -1,5 +1,6 @@
 from discord import Embed, Colour, Guild
 from discord.ext import commands
+from lbwebsite.models import GuildCustomCommand
 
 from utils import checks
 
@@ -17,16 +18,12 @@ class CustomCommands:
     def __init__(self, bot):
         self.bot = bot
 
-    def get_custom_commands(self, guild: Guild):
-        return self.bot.get_guild_setting(guild, 'CUSTOM_COMMANDS')
-
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandNotFound):
             if ctx.guild:
-                custom_commands = self.get_custom_commands(ctx.guild)
-                if custom_commands and ctx.invoked_with in custom_commands:
-                    if custom_commands[ctx.invoked_with]['type'] == "text":
-                        await ctx.send(custom_commands[ctx.invoked_with]['text'])
+                custom_command = GuildCustomCommand.objects.filter(guild_id=ctx.guild.id, name=ctx.invoked_with).first()
+                if custom_command:
+                    await ctx.send(custom_command.value)
 
     @commands.group(name="commands", invoke_without_command=True)
     @commands.guild_only()
@@ -37,9 +34,9 @@ class CustomCommands:
         Example: You can create a !ping text command that will reply Pong!
         """
         embed = Embed(title=f"Custom commands for the {ctx.guild.name} server.", colour=Colour.blurple())
-        custom_commands = self.get_custom_commands(ctx.guild)
+        custom_commands = GuildCustomCommand.objects.filter(guild_id=ctx.guild.id).all()
         if custom_commands:
-            embed.description = '\n'.join(f'{key}' for key, value in custom_commands)
+            embed.description = '\n'.join(f'{command.name}' for command in custom_commands)
         else:
             embed.description = 'No custom commands!'
         await ctx.message.author.send(embed=embed)
@@ -56,21 +53,17 @@ class CustomCommands:
         - The legendarybot-admin role.
         - The Manage Server or the Administrator permission.
         """
-        custom_commands = self.get_custom_commands(ctx.guild)
-        if custom_commands:
-            custom_commands[command_name] = {
-                "type": command_type,
-                "text": " ".join(text)
-            }
+
+        custom_command = GuildCustomCommand.objects.filter(guild_id=ctx.guild.id, name=command_name).first()
+        if custom_command:
+            custom_command.type = GuildCustomCommand.TEXT
+            custom_command.value = " ".join(text)
+            custom_command.save()
+            await ctx.message.author.send(f"Command {command_name} updated!")
         else:
-            custom_commands = {
-                command_name: {
-                    "type": command_type,
-                    "text": " ".join(text)
-                }
-            }
-        self.bot.set_guild_setting(ctx.guild, 'CUSTOM_COMMANDS', custom_commands)
-        await ctx.message.author.send(f"Command {command_name} created!")
+            custom_command = GuildCustomCommand(guild_id=ctx.guild.id, name=command_name, type=GuildCustomCommand.TEXT, value=" ".join(text))
+            custom_command.save()
+            await ctx.message.author.send(f"Command {command_name} created!")
 
     @custom_commands.command(name="remove")
     @checks.is_bot_admin()
@@ -82,10 +75,9 @@ class CustomCommands:
         - The legendarybot-admin role.
         - The Manage Server or the Administrator permission.
         """
-        custom_commands = self.bot.get_guild_setting(ctx.guild, 'CUSTOM_COMMANDS')
-        if command_name in custom_commands:
-            custom_commands.remove(command_name)
-            self.bot.set_guild_setting(ctx.guild, 'CUSTOM_COMMANDS', custom_commands)
+        custom_command = GuildCustomCommand.objects.filter(guild_id=ctx.guild.id, name=command_name).first()
+        if custom_command:
+            custom_command.delete()
             await ctx.message.author.send(f"Command {command_name} removed!")
         else:
             await ctx.message.author.send(f"Command {command_name} not found!")
