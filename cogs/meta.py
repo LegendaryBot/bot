@@ -35,7 +35,7 @@ class Meta:
     @prefix.command(name='add')
     @checks.is_bot_admin()
     @commands.guild_only()
-    async def prefix_add(self, ctx, prefix: str):
+    async def prefix_add(self, ctx, prefix: Prefix):
         """
         Add a prefix to the list of custom prefixes for this Discord server.
 

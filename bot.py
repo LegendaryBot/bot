@@ -30,9 +30,10 @@ def _prefix_callable(bot, msg):
     if msg.guild is None:
         base.append("!")
     try:
-        guild = DiscordGuild.objects.get(pk=msg.guild.id)
-        for prefix in guild.guildprefix_set.all():
-            base.append(prefix.prefix)
+        if msg.guild:
+            guild = DiscordGuild.objects.get(pk=msg.guild.id)
+            for prefix in guild.guildprefix_set.all():
+                base.append(prefix.prefix)
     except DiscordGuild.DoesNotExist:
         base.append("!")
     return base

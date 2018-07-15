@@ -21,15 +21,15 @@ class WoW:
         self.bot = bot
 
     @commands.command()
-    async def token(self, ctx):
+    async def token(self, ctx, region: str="NA"):
         """
         Get the WoW token price of your region
         """
         token_request = requests.get("https://data.wowtoken.info/snapshot.json")
         token_json = token_request.json()
-        if "NA" in token_json:
-            region_json = token_json['NA']['formatted']
-            embed = Embed(title="Price for 1 WoW Token in the NA region",
+        if region.upper() in token_json:
+            region_json = token_json[region.upper()]['formatted']
+            embed = Embed(title=f"Price for 1 WoW Token in the {region.upper()} region",
                           color=Colour.from_rgb(255, 215, 0))
             embed.set_footer(text="Information taken from https://wowtoken.info",
                              icon_url="http://wow.zamimg.com/images/wow/icons/large/wow_token01.jpg")
