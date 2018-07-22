@@ -117,11 +117,11 @@ class WoW:
         if not character_name:
             user_social = UserSocialAuth.objects.filter(provider='discord', uid=ctx.author.id).first()
             if user_social:
-                character = user_social.user.character.filter(main_for_guild=True).first()
+                character = Character.objects.filter(user=user_social.user, main_for_guild=ctx.guild.id).first()
                 if character:
                     character_name = character.name
-                    realm_name = character.realm_slug
-                    region = character.region
+                    realm_name = character.server_slug
+                    region = character.get_region_display()
                 else:
                     raise commands.BadArgument("You must enter a character name.")
             else:
