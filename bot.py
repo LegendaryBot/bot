@@ -58,7 +58,7 @@ class LegendaryBotDiscord(commands.AutoShardedBot):
             await ctx.author.send('This command cannot be used in private messages.')
         elif isinstance(error, commands.DisabledCommand):
             await ctx.author.send('Sorry. This command is disabled and cannot be used.')
-        elif isinstance(error, commands.BadArgument):
+        elif isinstance(error, commands.BadArgument) or isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(error)
         else:
             exc_type, exc_value, exc_traceback = sys.exc_info()

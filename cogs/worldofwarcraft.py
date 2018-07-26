@@ -1,3 +1,4 @@
+import datetime
 import os
 from decimal import Decimal
 
@@ -10,6 +11,7 @@ from slugify import slugify
 from social_django.models import UserSocialAuth
 
 from utils import battlenet_util
+from utils.simple_utc import simple_utc
 from utils.wow_utils import get_color_by_class_name, get_class_icon
 
 
@@ -22,7 +24,7 @@ class WoW:
         self.bot = bot
 
     @commands.command()
-    async def token(self, ctx, region: str=None):
+    async def token(self, ctx, region: str = None):
         """
         Get the WoW token price of your region
         """
@@ -49,8 +51,8 @@ class WoW:
         else:
             raise commands.BadArgument('Region not found. Supported regions are: NA/EU/CN/TW/KR')
 
-    @commands.command(name="status", aliases=["server"], rest_is_raw = True)
-    async def get_realm_status(self, ctx, region, *realm: str):
+    @commands.command(name="status", aliases=["server"], rest_is_raw=True)
+    async def get_realm_status(self, ctx, region: str = None, *realm: str):
         """
         Get the status of a World of Warcraft realm.
 
@@ -58,9 +60,9 @@ class WoW:
         If your realm name have spaces in it's name, please quote the name with "".
         Example: "Bleeding Hollow"
         """
-        if realm is None and ctx.guild:
+        if region is None or realm is None and ctx.guild:
             guild_server = GuildServer.objects.filter(pk=ctx.guild.id, default=True).first()
-            if guild_server is None:
+            if guild_server:
                 realm_slug = guild_server.realm
             else:
                 raise commands.BadArgument('You are required to type a realm.')
@@ -93,20 +95,25 @@ class WoW:
         """
         Get the Mythic+ affixes of this week.
         """
-        region = self.bot.get_guild_setting(ctx.guild, 'REGION_NAME', 'US')
+        guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
+        region = "us"
+        if guild_server:
+            region = guild_server.region
         oauth = battlenet_util.get_battlenet_oauth(region)
-        r = oauth.get(f"https://{region}.api.battle.net/data/wow/mythic-challenge-mode/?namespace=dynamic-us&locale=en_US")
+        r = oauth.get(
+            f"https://{region}.api.battle.net/data/wow/mythic-challenge-mode/?namespace=dynamic-us&locale=en_US")
         json_mythicplus = r.json()
         embed = Embed()
         embed.set_thumbnail(url="http://wow.zamimg.com/images/wow/icons/large/inv_relics_hourglass.jpg")
         current_difficulty = 0
         for current_affix in json_mythicplus['current_keystone_affixes']:
-            embed.add_field(name="(%i) %s" % (current_affix['starting_level'], current_affix['keystone_affix']['name']), value=mythicplus_affix[current_affix['keystone_affix']['id']]['description'], inline=False)
+            embed.add_field(name="(%i) %s" % (current_affix['starting_level'], current_affix['keystone_affix']['name']),
+                            value=mythicplus_affix[current_affix['keystone_affix']['id']]['description'], inline=False)
             current_difficulty += mythicplus_affix[current_affix['keystone_affix']['id']]['difficulty']
         if current_difficulty <= 3:
             embed.colour = Colour.green()
         elif current_difficulty == 4:
-            embed.colour = Colour.from_rgb(255,255,0)
+            embed.colour = Colour.from_rgb(255, 255, 0)
         else:
             embed.colour = Colour.red()
         await ctx.send(embed=embed)
@@ -155,12 +162,19 @@ class WoW:
                 wow_link = f"https://worldofwarcraft.com/en-us/character/{realm_name}/{character_name}"
             else:
                 wow_link = f"https://worldofwarcraft.com/en-gb/character/{realm_name}/{character_name}"
-            embed.set_author(name=f"{raiderio['name']} {raiderio['realm']} - {raiderio['region'].upper()} | {raiderio['race']} {raiderio['active_spec_name']}  {raiderio['class']}", icon_url=get_class_icon(raiderio['class']), url=wow_link)
+            embed.set_author(
+                name=f"{raiderio['name']} {raiderio['realm']} - {raiderio['region'].upper()} | {raiderio['race']} {raiderio['active_spec_name']}  {raiderio['class']}",
+                icon_url=get_class_icon(raiderio['class']), url=wow_link)
             raid_progression = raiderio['raid_progression']
-            embed.add_field(name="Progression", value=f"**EN**: {raid_progression['the-emerald-nightmare']['summary']} - **ToV**: {raid_progression['trial-of-valor']['summary']} - **NH**: {raid_progression['the-nighthold']['summary']} - **ToS**: {raid_progression['tomb-of-sargeras']['summary']} - **ABT**: {raid_progression['antorus-the-burning-throne']['summary']}", inline=False)
-            embed.add_field(name="iLVL", value=f"{raiderio['gear']['item_level_equipped']}/{raiderio['gear']['item_level_total']}", inline=True)
+            embed.add_field(name="Progression",
+                            value=f"**EN**: {raid_progression['the-emerald-nightmare']['summary']} - **ToV**: {raid_progression['trial-of-valor']['summary']} - **NH**: {raid_progression['the-nighthold']['summary']} - **ToS**: {raid_progression['tomb-of-sargeras']['summary']} - **ABT**: {raid_progression['antorus-the-burning-throne']['summary']}",
+                            inline=False)
+            embed.add_field(name="iLVL",
+                            value=f"{raiderio['gear']['item_level_equipped']}/{raiderio['gear']['item_level_total']}",
+                            inline=True)
             embed.add_field(name="Current Mythic+ Score", value=raiderio['mythic_plus_scores']['all'], inline=True)
-            embed.add_field(name="Last Mythic+ Season Score", value=raiderio['previous_mythic_plus_scores']['all'], inline=True)
+            embed.add_field(name="Last Mythic+ Season Score", value=raiderio['previous_mythic_plus_scores']['all'],
+                            inline=True)
             best_runs = ""
             for mythicplus_run in raiderio['mythic_plus_best_runs']:
                 best_runs = f"[{mythicplus_run['dungeon']} "
@@ -173,7 +187,8 @@ class WoW:
                 best_runs += f"{mythicplus_run['num_keystone_upgrades']}]({mythicplus_run['url']})\n"
             if best_runs:
                 embed.add_field(name="Best Mythic+ Runs", value=best_runs, inline=True)
-            bnet_request = requests.get(f"https://{region}.api.battle.net/wow/character/{realm_name}/{character_name}", params={"fields": "achievements,stats", "apikey": os.getenv(f"{region}_KEY")})
+            bnet_request = requests.get(f"https://{region}.api.battle.net/wow/character/{realm_name}/{character_name}",
+                                        params={"fields": "achievements,stats", "apikey": os.getenv(f"{region}_KEY")})
             if bnet_request.ok:
                 bnet_json = bnet_request.json()
                 mplus_totals = ""
@@ -210,14 +225,51 @@ class WoW:
                 stats += f"**Mastery**: {round(Decimal(bnet_json['stats']['mastery']),2)}% ({bnet_json['stats']['masteryRating']})\n"
                 stats += f"**Versatility**: D:{round(Decimal(bnet_json['stats']['versatilityDamageDoneBonus']),2)}% B: {round(Decimal(bnet_json['stats']['versatilityDamageTakenBonus']),2)}%({bnet_json['stats']['versatility']})\n"
                 embed.add_field(name="Stats", value=stats, inline=False)
-            embed.add_field(name="WoWProgress", value=f"[Click Here](https://www.wowprogress.com/character/{region}/{realm_name}/{character_name})", inline=True)
-            embed.add_field(name="Raider.IO", value=f"[Click Here](https://raider.io/characters/{region}/{realm_name}/{character_name})", inline=True)
-            embed.add_field(name="WarcraftLogs", value=f"[Click Here](https://www.warcraftlogs.com/character/{region}/{realm_name}/{character_name})", inline=True)
+            embed.add_field(name="WoWProgress",
+                            value=f"[Click Here](https://www.wowprogress.com/character/{region}/{realm_name}/{character_name})",
+                            inline=True)
+            embed.add_field(name="Raider.IO",
+                            value=f"[Click Here](https://raider.io/characters/{region}/{realm_name}/{character_name})",
+                            inline=True)
+            embed.add_field(name="WarcraftLogs",
+                            value=f"[Click Here](https://www.warcraftlogs.com/character/{region}/{realm_name}/{character_name})",
+                            inline=True)
             embed.set_footer(text="Information taken from Raider.IO")
             await ctx.send(embed=embed)
         else:
             raise commands.BadArgument("Character not found! Does it exist on Raider.IO?")
-        print("lol")
+
+    @commands.command()
+    async def log(self, ctx):
+        # TODO Allow a parameter to give the guild name.
+        guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
+        if not guild_server:
+            raise commands.BadArgument("The owner of the server needs to configure at least 1 default guild first!")
+            return
+        key = os.getenv("WARCRAFTLOGS_KEY")
+        wc_request = requests.get(f"https://www.warcraftlogs.com/v1/reports/guild/{guild_server.guild_name}/{guild_server.server_slug}/{guild_server.get_region_display()}", params={"api_key": os.getenv("WARCRAFTLOGS_KEY")})
+        if not wc_request.ok:
+            await ctx.send(content="The guild is not found on WarcraftLogs. Does the guild exist on the website?")
+            return
+        wc_json = wc_request.json()
+        if wc_json:
+            log = wc_json[0]
+            embed = Embed()
+            embed.title = log["title"]
+            embed.url = f"https://www.warcraftlogs.com/reports/{log['id']}"
+            embed.set_thumbnail(url=f"https://dmszsuqyoe6y6.cloudfront.net/img/warcraft/zones/zone-{log['zone']}-small.jpg")
+            embed.add_field(name="Created by", value=log['owner'], inline=True)
+            embed.timestamp = datetime.datetime.utcfromtimestamp(log['start'] / 1000).replace(tzinfo=simple_utc())
+            wc_zones = requests.get("https://www.warcraftlogs.com/v1/zones", params={"api_key": os.getenv("WARCRAFTLOGS_KEY")})
+            if wc_zones.ok:
+                zones_json = wc_zones.json()
+                for zone in zones_json:
+                    if log['zone'] == zone['id']:
+                        embed.add_field(name="Zone", value=zone['name'], inline=True)
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send(f"The guild {guild_server.guild_name} got no public logs!")
+
 
 def setup(bot):
     bot.add_cog(WoW(bot))
