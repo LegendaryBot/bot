@@ -2,17 +2,19 @@ import datetime
 import os
 from decimal import Decimal
 
+import requests
 from discord import Embed, Colour
 from discord.ext import commands
-import requests
-from discord.ext.commands import Context
-from lbwebsite.models import GuildServer, Character, DiscordGuild
+from lbwebsite.models import GuildServer, Character
 from slugify import slugify
 from social_django.models import UserSocialAuth
 
 from utils import battlenet_util
 from utils.simple_utc import simple_utc
 from utils.wow_utils import get_color_by_class_name, get_class_icon
+
+
+
 
 
 class WoW:
@@ -22,6 +24,33 @@ class WoW:
 
     def __init__(self, bot):
         self.bot = bot
+
+    def __sub_format_ranking(self, difficulty):
+        if difficulty is not None:
+            ranking = "World: **%s**\n" % difficulty['world']
+            ranking += "Region: **%s**\n" % difficulty['region']
+            ranking += "Realm: **%s**\n" % difficulty['realm']
+        else:
+            ranking = "**Not started**\n"
+        return ranking
+
+    def __format_ranking(self, raid_json):
+        return_string = ""
+        normal = raid_json['normal']
+        heroic = raid_json['heroic']
+        mythic = raid_json['mythic']
+        if normal['world'] != 0 and heroic['world'] == 0 and mythic['world'] == 0:
+            return_string += "**Normal**\n"
+            return_string += self.__sub_format_ranking(normal)
+        elif heroic['world'] != 0 and mythic['world'] == 0:
+            return_string += "\n**Heroic**\n"
+            return_string += self.__sub_format_ranking(heroic)
+        elif mythic['world'] != 0:
+            return_string += "\n**Mythic**\n"
+            return_string += self.__sub_format_ranking(mythic)
+        else:
+            return_string += self.__sub_format_ranking(None)
+        return return_string
 
     @commands.command()
     async def token(self, ctx, region: str = None):
@@ -245,7 +274,6 @@ class WoW:
         guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
         if not guild_server:
             raise commands.BadArgument("The owner of the server needs to configure at least 1 default guild first!")
-            return
         key = os.getenv("WARCRAFTLOGS_KEY")
         wc_request = requests.get(f"https://www.warcraftlogs.com/v1/reports/guild/{guild_server.guild_name}/{guild_server.server_slug}/{guild_server.get_region_display()}", params={"api_key": os.getenv("WARCRAFTLOGS_KEY")})
         if not wc_request.ok:
@@ -270,10 +298,34 @@ class WoW:
         else:
             await ctx.send(f"The guild {guild_server.guild_name} got no public logs!")
 
+    @commands.command(aliases=["iorank", "wprank"])
+    async def rank(self, ctx):
+        guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
+        if not guild_server:
+            raise commands.BadArgument("The owner of the server needs to configure at least 1 default guild first!")
+        query_parameters = {
+            "region": guild_server.get_region_display(),
+            "realm": guild_server.server_slug,
+            "name": guild_server.guild_name,
+            "fields": "raid_rankings"
+        }
+        raiderio_request = requests.get("https://raider.io/api/v1/guilds/profile", params=query_parameters)
+        if not raiderio_request.ok:
+            await ctx.send(content="The guild is not found on Raider.IO. Does the guild exist on the website?")
+            return
+        ranking_json = raiderio_request.json()
+        raid_rankings = ranking_json['raid_rankings']
+        embed = Embed()
+        embed.title = f"{guild_server.guild_name}-{guild_server.server_slug} Raid Rankings"
+        embed.add_field(name="Antorus The Burning Throne", value=self.__format_ranking(raid_rankings['antorus-the-burning-throne']), inline=True)
+        embed.add_field(name="Tomb of Sargeras", value=self.__format_ranking(raid_rankings['tomb-of-sargeras']), inline=True)
+        embed.add_field(name="The Nighthold", value=self.__format_ranking(raid_rankings['the-nighthold']), inline=True)
+        embed.add_field(name="Trial of Valor", value=self.__format_ranking(raid_rankings['trial-of-valor']), inline=True)
+        embed.add_field(name="The Emerald Nightmare", value=self.__format_ranking(raid_rankings['the-emerald-nightmare']), inline=True)
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(WoW(bot))
-
 
 mythicplus_affix = {
     1: {
