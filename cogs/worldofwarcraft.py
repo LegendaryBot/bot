@@ -5,7 +5,7 @@ from decimal import Decimal
 import requests
 from discord import Embed, Colour
 from discord.ext import commands
-from lbwebsite.models import GuildServer, Character
+from lbwebsite.models import GuildServer, Character, RealmConnected
 from slugify import slugify
 from social_django.models import UserSocialAuth
 
@@ -149,7 +149,12 @@ class WoW:
 
     @commands.command()
     async def lookup(self, ctx, character_name: str = None, realm_name: str = None, region: str = None):
-
+        """
+        Lookup a specific character
+        character_name: The character name you want to search (Optional if your main character is set)
+        realm_name: The realm of the character (Optional if the guild is set in this server)
+        region: The region (US/EU) the character is in (Optional if the guild is set in this server)
+        """
         if not character_name:
             user_social = UserSocialAuth.objects.filter(provider='discord', uid=ctx.author.id).first()
             if user_social:
@@ -175,14 +180,28 @@ class WoW:
             raise commands.BadArgument("The only valid regions are US or EU.")
 
         realm_name = slugify(realm_name)
-        payload = {
-            "region": region,
-            "realm": realm_name,
-            "name": character_name,
-            "fields": "gear,raid_progression,mythic_plus_scores,previous_mythic_plus_scores,mythic_plus_best_runs"
-        }
-        r = requests.get(f"https://raider.io/api/v1/characters/profile", params=payload)
-        if r.ok:
+        not_ok = True
+
+        while not_ok:
+            payload = {
+                "region": region,
+                "realm": realm_name,
+                "name": character_name,
+                "fields": "gear,raid_progression,mythic_plus_scores,previous_mythic_plus_scores,mythic_plus_best_runs"
+            }
+            r = requests.get(f"https://raider.io/api/v1/characters/profile", params=payload)
+            i = 0
+            if r.ok:
+                not_ok = False
+            else:
+                #We did not find the character, let's see another connected realm
+                realm_database = RealmConnected.objects.filter(server_slug=realm_name).first()
+                connected_realms = realm_database.connected_realms.all()
+                if connected_realms.length > i:
+                    realm_name = realm_database.connected_realms.all()[i]
+                    i += 1
+                else:
+                    raise commands.BadArgument("Character not found! Does it exist on Raider.IO?")
             raiderio = r.json()
             embed = Embed()
             embed.set_thumbnail(url=raiderio['thumbnail_url'])
@@ -208,11 +227,11 @@ class WoW:
             for mythicplus_run in raiderio['mythic_plus_best_runs']:
                 best_runs = f"[{mythicplus_run['dungeon']} "
                 if mythicplus_run['num_keystone_upgrades'] == 1:
-                    best_runs += "**+**"
+                    best_runs += "**+** "
                 elif mythicplus_run['num_keystone_upgrades'] == 2:
-                    best_runs += "**++**"
+                    best_runs += "**++** "
                 elif mythicplus_run['num_keystone_upgrades'] == 3:
-                    best_runs += "**+++**"
+                    best_runs += "**+++** "
                 best_runs += f"{mythicplus_run['num_keystone_upgrades']}]({mythicplus_run['url']})\n"
             if best_runs:
                 embed.add_field(name="Best Mythic+ Runs", value=best_runs, inline=True)
@@ -265,17 +284,18 @@ class WoW:
                             inline=True)
             embed.set_footer(text="Information taken from Raider.IO")
             await ctx.send(embed=embed)
-        else:
-            raise commands.BadArgument("Character not found! Does it exist on Raider.IO?")
 
     @commands.command()
     async def log(self, ctx):
+        """
+        Retrieve the latest log from WarcraftLogs for your guild.
+        """
         # TODO Allow a parameter to give the guild name.
         guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
         if not guild_server:
             raise commands.BadArgument("The owner of the server needs to configure at least 1 default guild first!")
         key = os.getenv("WARCRAFTLOGS_KEY")
-        wc_request = requests.get(f"https://www.warcraftlogs.com/v1/reports/guild/{guild_server.guild_name}/{guild_server.server_slug}/{guild_server.get_region_display()}", params={"api_key": os.getenv("WARCRAFTLOGS_KEY")})
+        wc_request = requests.get(f"https://www.warcraftlogs.com/v1/reports/guild/{guild_server.guild_name}/{guild_server.server_slug}/{guild_server.get_region_display()}", params={"api_key": key})
         if not wc_request.ok:
             await ctx.send(content="The guild is not found on WarcraftLogs. Does the guild exist on the website?")
             return
@@ -288,7 +308,7 @@ class WoW:
             embed.set_thumbnail(url=f"https://dmszsuqyoe6y6.cloudfront.net/img/warcraft/zones/zone-{log['zone']}-small.jpg")
             embed.add_field(name="Created by", value=log['owner'], inline=True)
             embed.timestamp = datetime.datetime.utcfromtimestamp(log['start'] / 1000).replace(tzinfo=simple_utc())
-            wc_zones = requests.get("https://www.warcraftlogs.com/v1/zones", params={"api_key": os.getenv("WARCRAFTLOGS_KEY")})
+            wc_zones = requests.get("https://www.warcraftlogs.com/v1/zones", params={"api_key": key})
             if wc_zones.ok:
                 zones_json = wc_zones.json()
                 for zone in zones_json:
@@ -300,6 +320,9 @@ class WoW:
 
     @commands.command(aliases=["iorank", "wprank"])
     async def rank(self, ctx):
+        """
+        Retrieve your Guild Raider.IO Ranking
+        """
         guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
         if not guild_server:
             raise commands.BadArgument("The owner of the server needs to configure at least 1 default guild first!")
@@ -324,8 +347,17 @@ class WoW:
         embed.add_field(name="The Emerald Nightmare", value=self.__format_ranking(raid_rankings['the-emerald-nightmare']), inline=True)
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def linkwowchars(self, ctx):
+        """
+        Let LegendaryBot know your characters.
+        """
+        await ctx.send("To link the bot to your characters, please go to https://legendarybot.info/myself")
+
+
 def setup(bot):
     bot.add_cog(WoW(bot))
+
 
 mythicplus_affix = {
     1: {

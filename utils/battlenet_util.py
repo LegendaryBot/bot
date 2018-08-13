@@ -13,5 +13,5 @@ def get_battlenet_oauth(region: str):
         client_secret = os.getenv('EU_SECRET')
     client = BackendApplicationClient(client_id=client_id)
     oauth = OAuth2Session(client=client)
-    oauth.fetch_token(token_url="https://us.battle.net/oauth/token", client_id=client_id, client_secret=client_secret)
+    oauth.fetch_token(token_url=f"https://{region}.battle.net/oauth/token", client_id=client_id, client_secret=client_secret)
     return oauth

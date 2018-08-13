@@ -73,6 +73,9 @@ class Meta:
 
     @commands.command()
     async def info(self, ctx):
+        """
+        Get information about the bot.
+        """
         embed = Embed(title="LegendaryBot")
         embed.set_author(name="Greatman", url="https://github.com/LegendaryBot/bot", icon_url="https://avatars3.githubusercontent.com/u/95754?v=3&s=460")
         embed.description = f"Created using Discord.py. Type @LegendaryBot help to show all the commands."
@@ -80,6 +83,9 @@ class Meta:
 
     @commands.command()
     async def invite(self, ctx):
+        """
+        Get the bot invite link
+        """
         await ctx.send("To invite LegendaryBot to your server. Click this link: <https://discordapp.com/oauth2/authorize?client_id=267134720700186626&scope=bot&permissions=3165248>")
 
 

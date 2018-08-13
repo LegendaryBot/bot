@@ -12,6 +12,9 @@ class Fun:
 
     @commands.command()
     async def gif(self, ctx, *search):
+        """
+        Search for a GIF
+        """
         gif = " ".join(search)
         request = requests.post("https://rightgif.com/search/web", {"text": gif})
         json_entry = request.json()
