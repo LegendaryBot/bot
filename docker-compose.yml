@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  postgres:
+    restart: always
+    image: postgres:alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  bot:
+    restart: always
+    build: .
+    volumes:
+      - .:/code
+    depends_on:
+      - postgres
+    env_file:
+      - bot.env
+    links:
+      - postgres
+  website-django:
+    restart: always
+    build: website/
+    command: sh -c "python manage.py migrate && python manage.py migrate && gunicorn legendarybot.wsgi:application --workers 3 -b 0.0.0.0:8000"
+    volumes:
+      - ./website:/code
+      - ./static:/static
+    links:
+      - postgres
+    depends_on:
+      - postgres
+      - bot
+  nginx:
+    image: nginx:alpine
+    restart: always
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - ./static:/static
+    depends_on:
+      - website-django
+    links:
+      - website-django
+    ports:
+      - 8000:80
+volumes:
+  postgres_data:

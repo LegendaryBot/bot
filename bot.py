@@ -5,12 +5,8 @@ import traceback
 
 import django
 
-#Loading Django so we have the website models
-from django.core.management import call_command
-
 os.environ['DJANGO_SETTINGS_MODULE']='legendarybot.settings'
 django.setup()
-call_command('migrate')
 from discord.ext import commands
 from lbwebsite.models import DiscordGuild
 
