@@ -142,7 +142,7 @@ class WoW:
             region = guild_server.get_region_display()
         oauth = battlenet_util.get_battlenet_oauth(region)
         r = oauth.get(
-            f"https://{region}.api.battle.net/data/wow/mythic-challenge-mode/?namespace=dynamic-us&locale=en_US")
+            f"https://{region}.api.battle.net/data/wow/mythic-challenge-mode/?namespace=dynamic-{region}&locale=en_US")
         json_mythicplus = r.json()
         embed = Embed()
         embed.set_thumbnail(url="http://wow.zamimg.com/images/wow/icons/large/inv_relics_hourglass.jpg")
