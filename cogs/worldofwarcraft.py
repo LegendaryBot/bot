@@ -192,7 +192,7 @@ class WoW:
                 raise commands.BadArgument("You must put the realm and the region.")
 
         region = region.lower()
-        if region != "us" and "eu":
+        if region != "us" and region != "eu":
             raise commands.BadArgument("The only valid regions are US or EU.")
 
         realm_name = slugify(realm_name)
@@ -212,9 +212,9 @@ class WoW:
             else:
                 #We did not find the character, let's see another connected realm
                 realm_database = RealmConnected.objects.filter(server_slug=realm_name).first()
-                connected_realms = realm_database.connected_realms.all()
-                if connected_realms.length > i:
-                    realm_name = realm_database.connected_realms.all()[i]
+                connected_realms = realm_database.connected_realm.all()
+                if len(connected_realms) > i:
+                    realm_name = realm_database.connected_realm.all()[i]
                     i += 1
                 else:
                     raise commands.BadArgument("Character not found! Does it exist on Raider.IO?")
