@@ -15,7 +15,17 @@ from utils.wow_utils import get_color_by_class_name, get_class_icon
 
 
 
+def convertMillis(millis):
+    seconds=int((millis/1000)%60)
+    minutes=int((millis/(1000*60))%60)
+    hours=int((millis/(1000*60*60))%24)
+    return seconds, minutes, hours
 
+def affixEmbed(embed, difficulty, affix):
+    embed.add_field(name="(%i) %s" % (affix['starting_level'], affix['keystone_affix']['name']),
+                    value=mythicplus_affix[affix['keystone_affix']['id']]['description'], inline=False)
+    difficulty += mythicplus_affix[affix['keystone_affix']['id']]['difficulty']
+    return embed, difficulty
 
 class WoW:
     """
@@ -58,13 +68,15 @@ class WoW:
         Get the WoW token price of your region
         """
         if region is None and ctx.guild:
-            guild_server = GuildServer.objects.filter(pk=ctx.guild.id, default=True).first()
+            guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
             if guild_server:
-                region = guild_server.region
+                region = guild_server.get_region_display()
             else:
                 raise commands.BadArgument('You are required to type the region. Supported regions are: NA/EU/CN/TW/KR')
         token_request = requests.get("https://data.wowtoken.info/snapshot.json")
         token_json = token_request.json()
+        if region.upper() == "US":
+            region = "NA"
         if region.upper() in token_json:
             region_json = token_json[region.upper()]['formatted']
             embed = Embed(title=f"Price for 1 WoW Token in the {region.upper()} region",
@@ -90,18 +102,18 @@ class WoW:
         Example: "Bleeding Hollow"
         """
         if region is None or realm is None and ctx.guild:
-            guild_server = GuildServer.objects.filter(pk=ctx.guild.id, default=True).first()
+            guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
             if guild_server:
-                realm_slug = guild_server.realm
+                realm_slug = guild_server.server_slug
             else:
                 raise commands.BadArgument('You are required to type a realm.')
         else:
             realm = " ".join(realm)
             realm_slug = slugify(realm)
         if ctx.guild:
-            guild_server = GuildServer.objects.filter(pk=ctx.guild.id, default=True).first()
+            guild_server = guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
             if guild_server:
-                region = guild_server.region
+                region = guild_server.get_region_display()
         oauth = battlenet_util.get_battlenet_oauth(region)
         r = oauth.get(f"https://{region}.api.battle.net/data/wow/realm/{realm_slug}?namespace=dynamic-us&locale=en_US")
         if r.ok:
@@ -127,7 +139,7 @@ class WoW:
         guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
         region = "us"
         if guild_server:
-            region = guild_server.region
+            region = guild_server.get_region_display()
         oauth = battlenet_util.get_battlenet_oauth(region)
         r = oauth.get(
             f"https://{region}.api.battle.net/data/wow/mythic-challenge-mode/?namespace=dynamic-us&locale=en_US")
@@ -135,16 +147,20 @@ class WoW:
         embed = Embed()
         embed.set_thumbnail(url="http://wow.zamimg.com/images/wow/icons/large/inv_relics_hourglass.jpg")
         current_difficulty = 0
-        for current_affix in json_mythicplus['current_keystone_affixes']:
-            embed.add_field(name="(%i) %s" % (current_affix['starting_level'], current_affix['keystone_affix']['name']),
-                            value=mythicplus_affix[current_affix['keystone_affix']['id']]['description'], inline=False)
-            current_difficulty += mythicplus_affix[current_affix['keystone_affix']['id']]['difficulty']
+        embed.add_field(name="(%i) %s" % (2, json_mythicplus['current_keystone_affixes'][2]['keystone_affix']['name']),
+                        value=mythicplus_affix[json_mythicplus['current_keystone_affixes'][2]['keystone_affix']['id']]['description'], inline=False)
+        current_difficulty += mythicplus_affix[json_mythicplus['current_keystone_affixes'][2]['keystone_affix']['id']]['difficulty']
+        embed, current_difficulty = affixEmbed(embed, current_difficulty, json_mythicplus['current_keystone_affixes'][0])
+        embed, current_difficulty = affixEmbed(embed, current_difficulty, json_mythicplus['current_keystone_affixes'][1])
+
         if current_difficulty <= 3:
             embed.colour = Colour.green()
         elif current_difficulty == 4:
             embed.colour = Colour.from_rgb(255, 255, 0)
         else:
             embed.colour = Colour.red()
+        embed.add_field(name="(%i) %s" % (10, "Infested"),
+                        value=mythicplus_affix[16]['description'], inline=False)
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -171,7 +187,7 @@ class WoW:
             guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
             if guild_server:
                 realm_name = guild_server.server_slug
-                region = guild_server.region
+                region = guild_server.get_region_display()
             else:
                 raise commands.BadArgument("You must put the realm and the region.")
 
@@ -215,24 +231,26 @@ class WoW:
                 icon_url=get_class_icon(raiderio['class']), url=wow_link)
             raid_progression = raiderio['raid_progression']
             embed.add_field(name="Progression",
-                            value=f"**EN**: {raid_progression['the-emerald-nightmare']['summary']} - **ToV**: {raid_progression['trial-of-valor']['summary']} - **NH**: {raid_progression['the-nighthold']['summary']} - **ToS**: {raid_progression['tomb-of-sargeras']['summary']} - **ABT**: {raid_progression['antorus-the-burning-throne']['summary']}",
+                            value=f"**Uldir**: {raid_progression['uldir']['summary']}",
                             inline=False)
             embed.add_field(name="iLVL",
                             value=f"{raiderio['gear']['item_level_equipped']}/{raiderio['gear']['item_level_total']}",
                             inline=True)
             embed.add_field(name="Current Mythic+ Score", value=raiderio['mythic_plus_scores']['all'], inline=True)
-            embed.add_field(name="Last Mythic+ Season Score", value=raiderio['previous_mythic_plus_scores']['all'],
+            if "previous_mythic_plus_scores" in raiderio:
+                embed.add_field(name="Last Mythic+ Season Score", value=raiderio['previous_mythic_plus_scores']['all'],
                             inline=True)
             best_runs = ""
             for mythicplus_run in raiderio['mythic_plus_best_runs']:
-                best_runs = f"[{mythicplus_run['dungeon']} "
+                best_runs += f"[{mythicplus_run['dungeon']} - **"
                 if mythicplus_run['num_keystone_upgrades'] == 1:
-                    best_runs += "**+** "
+                    best_runs += "+ "
                 elif mythicplus_run['num_keystone_upgrades'] == 2:
-                    best_runs += "**++** "
+                    best_runs += "++ "
                 elif mythicplus_run['num_keystone_upgrades'] == 3:
-                    best_runs += "**+++** "
-                best_runs += f"{mythicplus_run['num_keystone_upgrades']}]({mythicplus_run['url']})\n"
+                    best_runs += "+++ "
+                seconds, minutes, hour = convertMillis(mythicplus_run['clear_time_ms'])
+                best_runs += f"{mythicplus_run['mythic_level']}** {hour}:{minutes}:{seconds}]({mythicplus_run['url']})\n"
             if best_runs:
                 embed.add_field(name="Best Mythic+ Runs", value=best_runs, inline=True)
             bnet_request = requests.get(f"https://{region}.api.battle.net/wow/character/{realm_name}/{character_name}",
@@ -340,11 +358,7 @@ class WoW:
         raid_rankings = ranking_json['raid_rankings']
         embed = Embed()
         embed.title = f"{guild_server.guild_name}-{guild_server.server_slug} Raid Rankings"
-        embed.add_field(name="Antorus The Burning Throne", value=self.__format_ranking(raid_rankings['antorus-the-burning-throne']), inline=True)
-        embed.add_field(name="Tomb of Sargeras", value=self.__format_ranking(raid_rankings['tomb-of-sargeras']), inline=True)
-        embed.add_field(name="The Nighthold", value=self.__format_ranking(raid_rankings['the-nighthold']), inline=True)
-        embed.add_field(name="Trial of Valor", value=self.__format_ranking(raid_rankings['trial-of-valor']), inline=True)
-        embed.add_field(name="The Emerald Nightmare", value=self.__format_ranking(raid_rankings['the-emerald-nightmare']), inline=True)
+        embed.add_field(name="Uldir", value=self.__format_ranking(raid_rankings['uldir']), inline=True)
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -416,5 +430,10 @@ mythicplus_affix = {
         "difficulty": 1,
         "description": "Periodically, all players emit a shockwave, inflicting damage and interrupting nearby allies.",
     },
+    16: {
+        "difficulty": 0,
+        "description": "Some non-boss enemies have been infested with a Spawn of G'huun."
+    }
 
 }
+

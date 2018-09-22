@@ -40,4 +40,5 @@ RUN set -ex \
         && apk del .build-deps
 RUN mkdir /code
 WORKDIR /code
+ADD . /code/
 CMD python bot.py
