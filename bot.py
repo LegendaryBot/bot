@@ -1,22 +1,18 @@
-import decimal
-import json
 import logging
 import os
 import sys
 import traceback
 
-import boto3
 import django
-from slugify import slugify
-
 from dotenv import load_dotenv
+
 load_dotenv()
 
 os.environ['DJANGO_SETTINGS_MODULE']='legendarybot.settings'
 django.setup()
 
 from discord.ext import commands
-from lbwebsite.models import DiscordGuild, GuildPrefix, GuildServer, GuildCustomCommand
+from lbwebsite.models import DiscordGuild
 
 logging.basicConfig(level=logging.INFO)
 
@@ -27,7 +23,8 @@ initial_extensions = {
     "cogs.custom_commands",
     "cogs.fun",
     "cogs.played",
-    "cogs.botlist"
+    "cogs.botlist",
+    "cogs.rank_system"
 }
 
 
