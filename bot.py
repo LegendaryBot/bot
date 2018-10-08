@@ -24,7 +24,8 @@ initial_extensions = {
     "cogs.fun",
     "cogs.played",
     "cogs.botlist",
-    "cogs.rank_system"
+    "cogs.rank_system",
+    "cogs.debug"
 }
 
 
