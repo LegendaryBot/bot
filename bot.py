@@ -26,7 +26,8 @@ initial_extensions = {
     "cogs.botlist",
     "cogs.rank_system",
     "cogs.debug",
-    "cogs.music"
+    "cogs.music",
+    "cogs.stats"
 }
 
 
@@ -58,6 +59,8 @@ class LegendaryBotDiscord(commands.AutoShardedBot):
     async def on_ready(self):
         print('Logged in as %s - %s' % (self.user.name, self.user.id))
 
+    async def on_command(self, ctx):
+        self.get_cog("Stats").command_count += 1
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.NoPrivateMessage):
             await ctx.author.send('This command cannot be used in private messages.')

@@ -42,3 +42,4 @@ urllib3==1.23
 websockets==6.0
 yarl==1.2.6
 youtube_dl==2018.10.5
+influxdb==5.2.0
