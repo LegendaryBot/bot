@@ -6,7 +6,7 @@ class Stats:
 
     def __init__(self, bot):
         self.bot = bot
-        self.sleep = 5
+        self.sleep = 60
         self.command_count = 0
         self.client = InfluxDBClient(database="legendarybot")
         self.bot.loop.create_task(self.recuring_task())
