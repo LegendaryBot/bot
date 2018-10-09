@@ -190,7 +190,7 @@ class Music:
         await ctx.send("Changed volume to {}%".format(volume), delete_after=20)
 
     @commands.command()
-    async def stop(self, ctx):
+    async def stopmusic(self, ctx):
         """Stops and disconnects the bot from voice"""
         await self.cleanup(ctx.guild)
 
