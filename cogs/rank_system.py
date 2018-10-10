@@ -15,6 +15,7 @@ class RankSystem:
         self.bot = bot
 
     def generate_member_rank_map(self, guild):
+        logging.info(f"{guild.guild.guild_id} - Generating the rank map")
         guild_ranks = GuildRank.objects.filter(guild=guild.guild).all()
         if guild_ranks:
             #Retrieve from blizzard the information about members in the guilds
@@ -33,7 +34,7 @@ class RankSystem:
                 if 'ranks' not in guilds[region][realm][guild_name]:
                     guilds[region][realm][guild_name]['ranks'] = {}
                 guilds[region][realm][guild_name]['ranks'][guild_rank.rank_id] = guild_rank.discord_rank
-
+            logging.info(f"{guild.guild.guild_id} - Mapped the following from the config: {guilds}")
             for region in guilds:
                 for realm in guilds[region]:
                     for guild_name in guilds[region][realm]:
@@ -69,19 +70,23 @@ class RankSystem:
 
     async def update_user_rank(self, guilds, discord_guild, member):
         roles_list = self.generate_discord_rank_map(discord_guild)
+        logging.info(f"{discord_guild.id} - Role list generated from Discord: {roles_list}")
         bot_role = discord_guild.me.top_role
+        logging.info(f"{discord_guild.id} - The guild role for the bot is {bot_role}")
         character = self.get_user_main_character(discord_guild, member)
+        logging.info(f"{discord_guild.id} - The member character {character}")
         if character:
             #We have a main character. Let's find the member from the guild list
             if character.name in guilds[character.get_region_display()][character.server_slug][character.guild_name]["members"]:
                 #The user is found in the guild, let's get his rank ID
                 rank_id = guilds[character.get_region_display()][character.server_slug][character.guild_name]["members"][character.name]
                 discord_rank = guilds[character.get_region_display()][character.server_slug][character.guild_name]['ranks'][rank_id]
-
+                logging.info(f"{discord_guild.id} - The character have the following rank {rank_id} which is binded to this rank in discord: {discord_rank}")
                 #Search if the role is found in Discord
                 if discord_rank in roles_list:
                     #Role found, let's see if the bot can set it
                     if roles_list[discord_rank] < bot_role:
+                        logging.info(f"{discord_guild.id} - The bot can set the role")
                         #We can set it, remove all roles we can from the user and set this one.
                         member_roles = member.roles
                         roles_to_remove = []
@@ -93,25 +98,32 @@ class RankSystem:
                             if member_role == roles_list[discord_rank]:
                                 already_has_role = True
                         if roles_to_remove:
+                            logging.info(f"{discord_guild.id}- Removing ranks for {member.name}-{member.id} {roles_to_remove}")
                             await member.remove_roles(*roles_to_remove, reason="LegendaryBot WoW Sync")
                         if not already_has_role:
+                            logging.info(f"{discord_guild.id} - Adding rank {roles_list[discord_rank]} to {member.name}-{member.id}")
                             await member.add_roles(roles_list[discord_rank], reason="LegendaryBot WoW Sync")
 
     async def run_sync(self, guild):
         #Retrieve the Guild from Discord
+        logging.info(f"{guild.guild.guild_id} - Retrieving the Discord guild from Discord.")
         discord_guild = self.bot.get_guild(guild.guild.guild_id)
         if discord_guild:
             #Retrieve the rank settings for the guild
+            logging.info(f"{guild.guild.guild_id} - Retrieving guild ranks.")
             guild_ranks = GuildRank.objects.filter(guild=guild.guild).all()
             #Check if we have any ranks setup
             if guild_ranks:
+                logging.info(f"{guild.guild.guild_id} - Found {len(guild_ranks)} ranks.")
                 member_rank_map = self.generate_member_rank_map(guild)
+                logging.info(f"{guild.guild.guild_id} - The following map was generated {member_rank_map}")
                 #Retrieve LegendaryBot role and check if we can manage permissions
                 if self.check_if_bot_can_update_rank(discord_guild):
+                    logging.info(f"{guild.guild.guild_id} - The bot have permission to modify the ranks")
                     #Retrieve he members
                     members = discord_guild.members
                     for member in members:
-                        await self.update_user_rank(member_rank_map,discord_guild, member)
+                        await self.update_user_rank(member_rank_map, discord_guild, member)
 
     async def run_user_sync(self, discord_guild, discord_guild_setting, member):
         guild_ranks = GuildRank.objects.filter(guild=discord_guild_setting.guild).all()
@@ -125,9 +137,11 @@ class RankSystem:
     async def background_task(self):
         await self.bot.wait_until_ready()
         while not self.bot.is_closed():
+            logging.info("Starting Rank background task.")
             #We get all the guilds that have the rank system enabled
             guildrank_enabled_guilds = GuildSetting.objects.filter(setting_name="rank_enabled_loop").all()
             for guild in guildrank_enabled_guilds:
+                logging.info(f"Doing rank sync for guild {guild.guild.guild_id} - {guild.guild.name}")
                 await self.run_sync(guild)
             await asyncio.sleep(self.timer)
 

@@ -2,11 +2,20 @@ import logging
 import os
 import sys
 import traceback
+from logging.handlers import SysLogHandler
 
 import django
 from dotenv import load_dotenv
 
+logging.basicConfig(level=logging.INFO)
 load_dotenv()
+
+syslog = SysLogHandler(address=(os.getenv("PAPERTRAIL_HOST"), int(os.getenv("PAPERTRAIL_PORT"))))
+format = '%(asctime)s LEGENDARYBOT: %(levelname)s %(message)s'
+formatter = logging.Formatter(format, datefmt='%b %d %H:%M:%S')
+syslog.setFormatter(formatter)
+logging.getLogger().addHandler(syslog)
+logging.getLogger().setLevel(logging.INFO)
 
 os.environ['DJANGO_SETTINGS_MODULE']='legendarybot.settings'
 django.setup()
@@ -14,7 +23,7 @@ django.setup()
 from discord.ext import commands
 from lbwebsite.models import DiscordGuild
 
-logging.basicConfig(level=logging.INFO)
+
 
 
 initial_extensions = {
@@ -53,11 +62,11 @@ class LegendaryBotDiscord(commands.AutoShardedBot):
     def __init__(self):
         super().__init__(command_prefix=_prefix_callable, pm_help=True)
         for cog in initial_extensions:
-            print("Loading %s" % cog)
+            logging.info(f"Loading {cog}")
             self.load_extension(cog)
 
     async def on_ready(self):
-        print('Logged in as %s - %s' % (self.user.name, self.user.id))
+        logging.info(f"Logged in as {self.user.name} - {self.user.id}")
 
     async def on_command(self, ctx):
         self.get_cog("Stats").command_count += 1
