@@ -115,7 +115,7 @@ class WoW:
             if guild_server:
                 region = guild_server.get_region_display()
         oauth = battlenet_util.get_battlenet_oauth(region)
-        r = oauth.get(f"https://{region}.api.battle.net/data/wow/realm/{realm_slug}?namespace=dynamic-us&locale=en_US")
+        r = oauth.get(f"https://{region}.api.battle.net/data/wow/realm/{realm_slug}?namespace=dynamic-{region}&locale=en_US")
         if r.ok:
             r = requests.get(f"https://{region}.api.battle.net/wow/realm/status",
                              params={"realms": realm_slug, "apikey": os.getenv(f"{region}_KEY")})
