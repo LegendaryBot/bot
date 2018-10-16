@@ -81,11 +81,11 @@ class RankSystem:
             #We have a main character. Let's find the member from the guild list
             connected_realm = RealmConnected.objects.filter(server_slug=character.server_slug, region=character.region).first()
             server_name = None
-            if character.server_slug in guilds[character.get_region_display()] and character.name in guilds[character.get_region_display()][character.server_slug][character.guild_name]["members"][character.server_slug]:
+            if character.server_slug in guilds[character.get_region_display()] and character.guild_name in guilds[character.get_region_display()][character.server_slug] and character.name in guilds[character.get_region_display()][character.server_slug][character.guild_name]["members"][character.server_slug]:
                 server_name = character.server_slug
             else:
                 for realm_entry in connected_realm.connected_realm.all():
-                    if realm_entry.server_slug in guilds[character.get_region_display()] and character.name in guilds[character.get_region_display()][realm_entry.server_slug][character.guild_name]["members"][character.server_slug]:
+                    if realm_entry.server_slug in guilds[character.get_region_display()] and character.guild_name in guilds[character.get_region_display()][realm_entry.server_slug] and character.name in guilds[character.get_region_display()][realm_entry.server_slug][character.guild_name]["members"][character.server_slug]:
                         server_name = realm_entry.server_slug
             if server_name:
                 #The user is found in the guild, let's get his rank ID
