@@ -4,7 +4,7 @@ import os
 
 import requests
 from discord.ext import commands
-from lbwebsite.models import GuildSetting, Character, GuildRank, DiscordGuild
+from lbwebsite.models import GuildSetting, Character, GuildRank, RealmConnected
 from social_django.models import UserSocialAuth
 
 
@@ -44,7 +44,9 @@ class RankSystem:
                             bnet_json = bnet_request.json()
                             guilds[region][realm][guild_name]["members"] = {}
                             for member in bnet_json['members']:
-                                guilds[region][realm][guild_name]["members"][member['character']['name']] = member['rank']
+                                if member['character']['realm'].lower() not in guilds[region][realm][guild_name]["members"]:
+                                    guilds[region][realm][guild_name]["members"][member['character']['realm'].lower()] = {}
+                                guilds[region][realm][guild_name]["members"][member['character']['realm'].lower()][member['character']['name']] = member['rank']
             return guilds
         return None
 
@@ -77,10 +79,18 @@ class RankSystem:
         logging.info(f"{discord_guild.id} - The member character {character}")
         if character:
             #We have a main character. Let's find the member from the guild list
-            if character.name in guilds[character.get_region_display()][character.server_slug][character.guild_name]["members"]:
+            connected_realm = RealmConnected.objects.filter(server_slug=character.server_slug, region=character.region).first()
+            server_name = None
+            if character.server_slug in guilds[character.get_region_display()] and character.name in guilds[character.get_region_display()][character.server_slug][character.guild_name]["members"][character.server_slug]:
+                server_name = character.server_slug
+            else:
+                for realm_entry in connected_realm.connected_realm.all():
+                    if realm_entry.server_slug in guilds[character.get_region_display()] and character.name in guilds[character.get_region_display()][realm_entry.server_slug][character.guild_name]["members"][character.server_slug]:
+                        server_name = realm_entry.server_slug
+            if server_name:
                 #The user is found in the guild, let's get his rank ID
-                rank_id = guilds[character.get_region_display()][character.server_slug][character.guild_name]["members"][character.name]
-                discord_rank = guilds[character.get_region_display()][character.server_slug][character.guild_name]['ranks'][rank_id]
+                rank_id = guilds[character.get_region_display()][server_name][character.guild_name]["members"][character.server_slug][character.name]
+                discord_rank = guilds[character.get_region_display()][server_name][character.guild_name]['ranks'][rank_id]
                 logging.info(f"{discord_guild.id} - The character have the following rank {rank_id} which is binded to this rank in discord: {discord_rank}")
                 #Search if the role is found in Discord
                 if discord_rank in roles_list:
