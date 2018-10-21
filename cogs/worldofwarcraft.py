@@ -22,7 +22,7 @@ def convertMillis(millis):
     return seconds, minutes, hours
 
 def affixEmbed(embed, difficulty, affix):
-    embed.add_field(name="(%i) %s" % (affix['starting_level'], affix['keystone_affix']['name']),
+    embed.add_field(name="(%i) %s" % (affix['starting_level'], affix['keystone_affix']['name']["en_US"]),
                     value=mythicplus_affix[affix['keystone_affix']['id']]['description'], inline=False)
     difficulty += mythicplus_affix[affix['keystone_affix']['id']]['difficulty']
     return embed, difficulty
@@ -111,14 +111,16 @@ class WoW:
             realm = " ".join(realm)
             realm_slug = slugify(realm)
         if ctx.guild:
-            guild_server = guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
+            guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
             if guild_server:
                 region = guild_server.get_region_display()
-        oauth = battlenet_util.get_battlenet_oauth(region)
-        r = oauth.get(f"https://{region}.api.battle.net/data/wow/realm/{realm_slug}?namespace=dynamic-{region}&locale=en_US")
+        params = {
+            "namespace": f"dynamic-{region}",
+            "locale": "en-US"
+        }
+        r = battlenet_util.execute_battlenet_request(f"https://{region}.api.blizzard.com/data/wow/realm/{realm_slug}", params)
         if r.ok:
-            r = requests.get(f"https://{region}.api.battle.net/wow/realm/status",
-                             params={"realms": realm_slug, "apikey": os.getenv(f"{region}_KEY")})
+            r = battlenet_util.execute_battlenet_request(f"https://{region}.api.blizzard.com/wow/realm/status", params={"realms": realm_slug})
             json_result = r.json()
             if 'realms' in json_result and len(json_result['realms']) > 0:
                 realm_json = json_result['realms'][0]
@@ -140,18 +142,19 @@ class WoW:
         region = "us"
         if guild_server:
             region = guild_server.get_region_display()
-        oauth = battlenet_util.get_battlenet_oauth(region)
-        r = oauth.get(
-            f"https://{region}.api.battle.net/data/wow/mythic-challenge-mode/?namespace=dynamic-{region}&locale=en_US")
+        params = {
+            "namespace": f"dynamic-{region}",
+            "locale": "en-US"
+        }
+        r = battlenet_util.execute_battlenet_request(f"https://{region}.api.blizzard.com/data/wow/mythic-challenge-mode/", params=params)
         json_mythicplus = r.json()
         embed = Embed()
         embed.set_thumbnail(url="http://wow.zamimg.com/images/wow/icons/large/inv_relics_hourglass.jpg")
         current_difficulty = 0
-        embed.add_field(name="(%i) %s" % (2, json_mythicplus['current_keystone_affixes'][2]['keystone_affix']['name']),
-                        value=mythicplus_affix[json_mythicplus['current_keystone_affixes'][2]['keystone_affix']['id']]['description'], inline=False)
-        current_difficulty += mythicplus_affix[json_mythicplus['current_keystone_affixes'][2]['keystone_affix']['id']]['difficulty']
         embed, current_difficulty = affixEmbed(embed, current_difficulty, json_mythicplus['current_keystone_affixes'][0])
         embed, current_difficulty = affixEmbed(embed, current_difficulty, json_mythicplus['current_keystone_affixes'][1])
+        embed, current_difficulty = affixEmbed(embed, current_difficulty, json_mythicplus['current_keystone_affixes'][2])
+        embed, current_difficulty = affixEmbed(embed, current_difficulty, json_mythicplus['current_keystone_affixes'][3])
 
         if current_difficulty <= 3:
             embed.colour = Colour.green()
@@ -159,8 +162,6 @@ class WoW:
             embed.colour = Colour.from_rgb(255, 255, 0)
         else:
             embed.colour = Colour.red()
-        embed.add_field(name="(%i) %s" % (10, "Infested"),
-                        value=mythicplus_affix[16]['description'], inline=False)
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -253,8 +254,7 @@ class WoW:
                 best_runs += f"{mythicplus_run['mythic_level']}** {hour}:{minutes}:{seconds}]({mythicplus_run['url']})\n"
             if best_runs:
                 embed.add_field(name="Best Mythic+ Runs", value=best_runs, inline=True)
-            bnet_request = requests.get(f"https://{region}.api.battle.net/wow/character/{realm_name}/{character_name}",
-                                        params={"fields": "achievements,stats", "apikey": os.getenv(f"{region}_KEY")})
+            bnet_request = battlenet_util.execute_battlenet_request(f"https://{region}.api.blizzard.com/wow/character/{realm_name}/{character_name}", params={"fields": "achievements,stats"})
             if bnet_request.ok:
                 bnet_json = bnet_request.json()
                 mplus_totals = ""

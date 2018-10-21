@@ -7,6 +7,8 @@ from discord.ext import commands
 from lbwebsite.models import GuildSetting, Character, GuildRank, RealmConnected
 from social_django.models import UserSocialAuth
 
+from utils import battlenet_util
+
 
 class RankSystem:
 
@@ -38,8 +40,7 @@ class RankSystem:
             for region in guilds:
                 for realm in guilds[region]:
                     for guild_name in guilds[region][realm]:
-                        bnet_request = requests.get(f"https://{region}.api.battle.net/wow/guild/{realm}/{guild_name}",
-                                                    params={"fields": "members", "apikey": os.getenv(f"{region}_KEY")})
+                        bnet_request = battlenet_util.execute_battlenet_request(f"https://{region}.api.blizzard.com/wow/guild/{realm}/{guild_name}", params={"fields": "members"})
                         if bnet_request.ok:
                             bnet_json = bnet_request.json()
                             guilds[region][realm][guild_name]["members"] = {}
