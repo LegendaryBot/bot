@@ -118,7 +118,6 @@ coverage.xml
 
 # Translations
 *.mo
-*.pot
 
 # Flask stuff:
 instance/
@@ -166,6 +165,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-
+.env
 
 # End of https://www.gitignore.io/api/python,intellij
