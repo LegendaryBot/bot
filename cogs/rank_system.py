@@ -1,13 +1,12 @@
 import asyncio
 import logging
-import os
 
-import requests
 from discord.ext import commands
 from lbwebsite.models import GuildSetting, Character, GuildRank, RealmConnected
 from social_django.models import UserSocialAuth
 
 from utils import battlenet_util
+from utils.translate import _
 
 
 class RankSystem:
@@ -156,7 +155,6 @@ class RankSystem:
                 await self.run_sync(guild)
             await asyncio.sleep(self.timer)
 
-
     async def on_ready(self):
         self.bot.loop.create_task(self.background_task())
 
@@ -170,9 +168,9 @@ class RankSystem:
         setting = GuildSetting.objects.filter(setting_name="rank_enabled", guild=ctx.guild.id).first()
         if setting:
             await self.run_sync(setting)
-            await ctx.message.author.send("Guild Rank Sync started. It may take some minutes to apply. Check the server Audit log for any changes.")
+            await ctx.message.author.send(_("Guild Rank Sync started. It may take some minutes to apply. Check the server Audit log for any changes."))
         else:
-            await ctx.message.author.send("The Rank System is not enabled. Please ask bot author to enable it.")
+            await ctx.message.author.send(_("The Rank System is not enabled. Please ask bot author to enable it."))
 
     @commands.command()
     @commands.guild_only()
@@ -183,19 +181,20 @@ class RankSystem:
         setting = GuildSetting.objects.filter(setting_name="rank_enabled", guild=ctx.guild.id).first()
         if setting:
             await self.run_user_sync(ctx.guild, setting, ctx.author)
-            await ctx.message.author.send("Your rank is being synced. It may take some minutes to apply.")
+            await ctx.message.author.send(_("Your rank is being synced. It may take some minutes to apply."))
         else:
-            await ctx.message.author.send("The Rank System is not enabled. Please ask bot author to enable it.")
+            await ctx.message.author.send(_("The Rank System is not enabled. Please ask bot author to enable it."))
 
     @commands.command()
     async def synchelp(self, ctx):
         '''
         Get information about the Sync system
         '''
-        await ctx.message.author.send("The Sync system allows you to have your Discord Rank Synced to your ingame WoW guild rank.\n"
+        await ctx.message.author.send(_("The Sync system allows you to have your Discord Rank Synced to your ingame WoW guild rank.\n"
                                       "For Server owners: Go on https://legendarybot.info, go in your server settings and configure the WoW Servers and the WoW Ranks section. \n"
                                       "This feature is still in BETA, which means it needs to be enabled by the bot owner (Greatman). Contact him here: https://discord.gg/Cr7G28H\n"
-                                      "For Users: Go on https://legendarybot.info, go in the Myself section and sync your Battle.Net account with the website. Then, select which character is the main character in the discord server you want.")
+                                      "For Users: Go on https://legendarybot.info, go in the Myself section and sync your Battle.Net account with the website. Then, select which character is the main character in the discord server you want."))
+
 
 def setup(bot):
     global logger

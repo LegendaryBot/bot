@@ -3,7 +3,7 @@ from discord.ext import commands
 from lbwebsite.models import GuildPrefix
 
 from utils import checks
-
+from utils.translate import _
 
 class Prefix(commands.Converter):
     async def convert(self, ctx, argument):
@@ -25,11 +25,11 @@ class Meta:
         If called without a subcommand, this will list the currently set prefixes.
         """
         prefixes = GuildPrefix.objects.filter(guild_id=ctx.guild.id).all()
-        embed = Embed(title='LegendaryBot prefixes configured.', colour=Colour.blurple())
+        embed = Embed(title=_('LegendaryBot prefixes configured.'), colour=Colour.blurple())
         if prefixes:
             embed.description = '\n'.join(f'{prefix.prefix}' for prefix in prefixes)
         else:
-            embed.description = "No prefixes set."
+            embed.description = _("No prefixes set.")
         await ctx.message.author.send(embed=embed)
 
     @prefix.command(name='add')
@@ -49,9 +49,9 @@ class Meta:
         if not prefix_entry:
             prefix_entry = GuildPrefix(guild_id=ctx.guild.id, prefix=prefix)
             prefix_entry.save()
-            await ctx.send(f"Prefix {prefix} added to the server.")
+            await ctx.send(_("Prefix {prefix} added to the server.").format(prefix=prefix))
         else:
-            await ctx.send(f"Prefix {prefix} not set. Already existing.")
+            await ctx.send(_("Prefix {prefix} not set. Already existing.").format(prefix=prefix))
 
     @prefix.command(name='remove')
     @checks.is_bot_admin()
@@ -67,18 +67,18 @@ class Meta:
         prefix_entry = GuildPrefix.objects.filter(guild_id=ctx.guild.id, prefix=prefix).first()
         if prefix_entry:
             prefix_entry.delete()
-            await ctx.send(f"Prefix {prefix} removed from the server")
+            await ctx.send(_("Prefix {prefix} removed from the server").format(prefix=prefix))
         else:
-            await ctx.send(f"Prefix {prefix} does not exist.")
+            await ctx.send(_("Prefix {prefix} does not exist.").format(prefix=prefix))
 
     @commands.command()
     async def info(self, ctx):
         """
         Get information about the bot.
         """
-        embed = Embed(title="LegendaryBot")
+        embed = Embed(title=_("LegendaryBot"))
         embed.set_author(name="Greatman", url="https://github.com/LegendaryBot/bot", icon_url="https://avatars3.githubusercontent.com/u/95754?v=3&s=460")
-        embed.description = f"Created using Discord.py. Type @LegendaryBot help to show all the commands."
+        embed.description = _("Created using Discord.py. Type @LegendaryBot help to show all the commands.")
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -86,7 +86,7 @@ class Meta:
         """
         Get the bot invite link
         """
-        await ctx.send("To invite LegendaryBot to your server. Click this link: <https://discordapp.com/oauth2/authorize?client_id=267134720700186626&scope=bot&permissions=3165248>")
+        await ctx.send(_("To invite LegendaryBot to your server. Click this link: <{link}>").format(link="https://discordapp.com/oauth2/authorize?client_id=267134720700186626&scope=bot&permissions=3165248"))
 
 
 def setup(bot):

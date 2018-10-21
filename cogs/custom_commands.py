@@ -1,15 +1,16 @@
-from discord import Embed, Colour, Guild
+from discord import Embed, Colour
 from discord.ext import commands
 from lbwebsite.models import GuildCustomCommand
 
 from utils import checks
+from utils.translate import _
 
 
 class CommandType(commands.Converter):
 
     async def convert(self, ctx, argument):
         if argument != "text":
-            raise commands.BadArgument("The only valid custom command type are: text")
+            raise commands.BadArgument(_("The only valid custom command type are: text"))
         return argument
 
 
@@ -33,12 +34,12 @@ class CustomCommands:
         This system allows you to create custom commands that the bot will reply with.
         Example: You can create a !ping text command that will reply Pong!
         """
-        embed = Embed(title=f"Custom commands for the {ctx.guild.name} server.", colour=Colour.blurple())
+        embed = Embed(title=_("Custom commands for the {guild_name} server.").format(guild_name=ctx.guild.name), colour=Colour.blurple())
         custom_commands = GuildCustomCommand.objects.filter(guild_id=ctx.guild.id).all()
         if custom_commands:
             embed.description = '\n'.join(f'{command.name}' for command in custom_commands)
         else:
-            embed.description = 'No custom commands!'
+            embed.description = _('No custom commands!')
         await ctx.message.author.send(embed=embed)
 
     @custom_commands.command(name="add", rest_is_raw=True)
@@ -59,11 +60,11 @@ class CustomCommands:
             custom_command.type = GuildCustomCommand.TEXT
             custom_command.value = " ".join(text)
             custom_command.save()
-            await ctx.message.author.send(f"Command {command_name} updated!")
+            await ctx.message.author.send(_("Command {command_name} updated!").format(command_name=command_name))
         else:
             custom_command = GuildCustomCommand(guild_id=ctx.guild.id, name=command_name, type=GuildCustomCommand.TEXT, value=" ".join(text))
             custom_command.save()
-            await ctx.message.author.send(f"Command {command_name} created!")
+            await ctx.message.author.send(_("Command {command_name} created!").format(command_name=command_name))
 
     @custom_commands.command(name="remove")
     @checks.is_bot_admin()
@@ -78,9 +79,9 @@ class CustomCommands:
         custom_command = GuildCustomCommand.objects.filter(guild_id=ctx.guild.id, name=command_name).first()
         if custom_command:
             custom_command.delete()
-            await ctx.message.author.send(f"Command {command_name} removed!")
+            await ctx.message.author.send(_("Command {command_name} removed!").format(command_name=command_name))
         else:
-            await ctx.message.author.send(f"Command {command_name} not found!")
+            await ctx.message.author.send(_("Command {command_name} not found!").format(command_name=command_name))
 
 
 def setup(bot):

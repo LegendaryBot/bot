@@ -7,6 +7,8 @@ from logging.handlers import SysLogHandler
 import django
 from dotenv import load_dotenv
 
+from utils.translate import _
+
 logging.basicConfig(level=logging.INFO)
 load_dotenv()
 
@@ -57,6 +59,7 @@ def _prefix_callable(bot, msg):
     return base
 
 
+
 class LegendaryBotDiscord(commands.AutoShardedBot):
 
     def __init__(self):
@@ -72,9 +75,9 @@ class LegendaryBotDiscord(commands.AutoShardedBot):
         self.get_cog("Stats").command_count += 1
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.NoPrivateMessage):
-            await ctx.author.send('This command cannot be used in private messages.')
+            await ctx.author.send(_('This command cannot be used in private messages.'))
         elif isinstance(error, commands.DisabledCommand):
-            await ctx.author.send('Sorry. This command is disabled and cannot be used.')
+            await ctx.author.send(_('Sorry. This command is disabled and cannot be used.'))
         elif isinstance(error, commands.BadArgument) or isinstance(error, commands.MissingRequiredArgument):
             await ctx.author.send(error)
         else:

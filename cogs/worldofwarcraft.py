@@ -12,7 +12,7 @@ from social_django.models import UserSocialAuth
 from utils import battlenet_util
 from utils.simple_utc import simple_utc
 from utils.wow_utils import get_color_by_class_name, get_class_icon
-
+from utils.translate import _
 
 
 def convertMillis(millis):
@@ -37,11 +37,11 @@ class WoW:
 
     def __sub_format_ranking(self, difficulty):
         if difficulty is not None:
-            ranking = "World: **%s**\n" % difficulty['world']
-            ranking += "Region: **%s**\n" % difficulty['region']
-            ranking += "Realm: **%s**\n" % difficulty['realm']
+            ranking = _("World: **{world}**").format(world=difficulty['world']) + "\n"
+            ranking += _("Region: **{region}**").format(region=difficulty['region']) + "\n"
+            ranking += _("Realm: **{realm}**").format(difficulty['realm']) + "\n"
         else:
-            ranking = "**Not started**\n"
+            ranking = _("**Not started**")+"\n"
         return ranking
 
     def __format_ranking(self, raid_json):
@@ -50,13 +50,13 @@ class WoW:
         heroic = raid_json['heroic']
         mythic = raid_json['mythic']
         if normal['world'] != 0 and heroic['world'] == 0 and mythic['world'] == 0:
-            return_string += "**Normal**\n"
+            return_string += _("**Normal**") + "\n"
             return_string += self.__sub_format_ranking(normal)
         elif heroic['world'] != 0 and mythic['world'] == 0:
-            return_string += "\n**Heroic**\n"
+            return_string += "\n" + _("**Heroic**") + "\n"
             return_string += self.__sub_format_ranking(heroic)
         elif mythic['world'] != 0:
-            return_string += "\n**Mythic**\n"
+            return_string += "\n" + _("**Mythic**") + "\n"
             return_string += self.__sub_format_ranking(mythic)
         else:
             return_string += self.__sub_format_ranking(None)
@@ -72,25 +72,25 @@ class WoW:
             if guild_server:
                 region = guild_server.get_region_display()
             else:
-                raise commands.BadArgument('You are required to type the region. Supported regions are: NA/EU/CN/TW/KR')
+                raise commands.BadArgument(_('You are required to type the region. Supported regions are: NA/EU/CN/TW/KR'))
         token_request = requests.get("https://data.wowtoken.info/snapshot.json")
         token_json = token_request.json()
         if region.upper() == "US":
             region = "NA"
         if region.upper() in token_json:
             region_json = token_json[region.upper()]['formatted']
-            embed = Embed(title=f"Price for 1 WoW Token in the {region.upper()} region",
+            embed = Embed(title=_("Price for 1 WoW Token in the {region} region").format(region=region.upper()),
                           color=Colour.from_rgb(255, 215, 0))
-            embed.set_footer(text="Information taken from https://wowtoken.info",
+            embed.set_footer(text=_("Information taken from https://wowtoken.info"),
                              icon_url="http://wow.zamimg.com/images/wow/icons/large/wow_token01.jpg")
             embed.set_thumbnail(url="http://wow.zamimg.com/images/wow/icons/large/wow_token01.jpg")
-            embed.add_field(name="Current Price", value=region_json['buy'], inline=True)
-            embed.add_field(name="Minimum 24H", value=region_json['24min'], inline=True)
-            embed.add_field(name="Maximum 24H", value=region_json['24max'], inline=True)
-            embed.add_field(name="Percentage 24H Range", value="%s %%" % region_json['24pct'])
+            embed.add_field(name=_("Current Price"), value=region_json['buy'], inline=True)
+            embed.add_field(name=_("Minimum 24H"), value=region_json['24min'], inline=True)
+            embed.add_field(name=_("Maximum 24H"), value=region_json['24max'], inline=True)
+            embed.add_field(name=_("Percentage 24H Range"), value="%s %%" % region_json['24pct'])
             await ctx.send(embed=embed)
         else:
-            raise commands.BadArgument('Region not found. Supported regions are: NA/EU/CN/TW/KR')
+            raise commands.BadArgument(_('Region not found. Supported regions are: NA/EU/CN/TW/KR'))
 
     @commands.command(name="status", aliases=["server"], rest_is_raw=True)
     async def get_realm_status(self, ctx, region: str = None, *realm: str):
@@ -106,7 +106,7 @@ class WoW:
             if guild_server:
                 realm_slug = guild_server.server_slug
             else:
-                raise commands.BadArgument('You are required to type a realm.')
+                raise commands.BadArgument(_('You are required to type a realm.'))
         else:
             realm = " ".join(realm)
             realm_slug = slugify(realm)
@@ -126,12 +126,12 @@ class WoW:
                 realm_json = json_result['realms'][0]
                 embed = Embed(title=f"{realm_json['name']} - {region.upper()}",
                               colour=Colour.green() if realm_json['status'] else Colour.red())
-                embed.add_field(name="Status", value="Online" if realm_json['status'] else "Offline", inline=True)
-                embed.add_field(name="Population", value=realm_json['population'], inline=True)
-                embed.add_field(name="Currently a Queue?", value="Yes" if realm_json['queue'] else "No", inline=True)
+                embed.add_field(name=_("Status"), value=_("Online") if realm_json['status'] else _("Offline"), inline=True)
+                embed.add_field(name=_("Population"), value=realm_json['population'], inline=True)
+                embed.add_field(name=_("Currently a Queue?"), value=_("Yes") if realm_json['queue'] else _("No"), inline=True)
                 await ctx.send(embed=embed)
         else:
-            raise commands.BadArgument('Realm not found. Did you make a mistake?')
+            raise commands.BadArgument(_('Realm not found. Did you make a mistake?'))
 
     @commands.command(name="affix")
     async def get_mythicplus_affix(self, ctx):
@@ -181,20 +181,20 @@ class WoW:
                     realm_name = character.server_slug
                     region = character.get_region_display()
                 else:
-                    raise commands.BadArgument("You must enter a character name.")
+                    raise commands.BadArgument(_("You must enter a character name."))
             else:
-                raise commands.BadArgument("You must enter a character name.")
+                raise commands.BadArgument(_("You must enter a character name."))
         if not realm_name:
             guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
             if guild_server:
                 realm_name = guild_server.server_slug
                 region = guild_server.get_region_display()
             else:
-                raise commands.BadArgument("You must put the realm and the region.")
+                raise commands.BadArgument(_("You must put the realm and the region."))
 
         region = region.lower()
         if region != "us" and region != "eu":
-            raise commands.BadArgument("The only valid regions are US or EU.")
+            raise commands.BadArgument(_("The only valid regions are US or EU."))
 
         realm_name = slugify(realm_name)
         not_ok = True
@@ -218,7 +218,7 @@ class WoW:
                     realm_name = realm_database.connected_realm.all()[i]
                     i += 1
                 else:
-                    raise commands.BadArgument("Character not found! Does it exist on Raider.IO?")
+                    raise commands.BadArgument(_("Character not found! Does it exist on Raider.IO?"))
             raiderio = r.json()
             embed = Embed()
             embed.set_thumbnail(url=raiderio['thumbnail_url'])
@@ -231,15 +231,15 @@ class WoW:
                 name=f"{raiderio['name']} {raiderio['realm']} - {raiderio['region'].upper()} | {raiderio['race']} {raiderio['active_spec_name']}  {raiderio['class']}",
                 icon_url=get_class_icon(raiderio['class']), url=wow_link)
             raid_progression = raiderio['raid_progression']
-            embed.add_field(name="Progression",
-                            value=f"**Uldir**: {raid_progression['uldir']['summary']}",
+            embed.add_field(name=_("Progression"),
+                            value=_("**Uldir **: {progression}").format(progression=raid_progression['uldir']['summary']),
                             inline=False)
-            embed.add_field(name="iLVL",
+            embed.add_field(name=_("iLVL"),
                             value=f"{raiderio['gear']['item_level_equipped']}/{raiderio['gear']['item_level_total']}",
                             inline=True)
-            embed.add_field(name="Current Mythic+ Score", value=raiderio['mythic_plus_scores']['all'], inline=True)
+            embed.add_field(name=_("Current Mythic+ Score"), value=raiderio['mythic_plus_scores']['all'], inline=True)
             if "previous_mythic_plus_scores" in raiderio:
-                embed.add_field(name="Last Mythic+ Season Score", value=raiderio['previous_mythic_plus_scores']['all'],
+                embed.add_field(name=_("Last Mythic+ Season Score"), value=raiderio['previous_mythic_plus_scores']['all'],
                             inline=True)
             best_runs = ""
             for mythicplus_run in raiderio['mythic_plus_best_runs']:
@@ -253,7 +253,7 @@ class WoW:
                 seconds, minutes, hour = convertMillis(mythicplus_run['clear_time_ms'])
                 best_runs += f"{mythicplus_run['mythic_level']}** {hour}:{minutes}:{seconds}]({mythicplus_run['url']})\n"
             if best_runs:
-                embed.add_field(name="Best Mythic+ Runs", value=best_runs, inline=True)
+                embed.add_field(name=_("Best Mythic+ Runs"), value=best_runs, inline=True)
             bnet_request = battlenet_util.execute_battlenet_request(f"https://{region}.api.blizzard.com/wow/character/{realm_name}/{character_name}", params={"fields": "achievements,stats"})
             if bnet_request.ok:
                 bnet_json = bnet_request.json()
@@ -275,32 +275,32 @@ class WoW:
                     mplus_totals += f"**M+15**:{bnet_json['achievements']['criteriaQuantity'][index]}\n"
                 except ValueError:
                     pass
-                embed.add_field(name="Mythic+ Completed", value=mplus_totals, inline=True)
+                embed.add_field(name=_("Mythic+ Completed"), value=mplus_totals, inline=True)
                 stats = ""
                 strength = bnet_json['stats']['str']
                 agi = bnet_json['stats']['agi']
                 intel = bnet_json['stats']['int']
                 if strength > agi and strength > intel:
-                    stats += f"**STR**: {strength} - "
+                    stats += _("**STR**: {strength}").format(strength=strength) + " - "
                 elif agi > strength and agi > intel:
-                    stats += f"**AGI**: {agi} - "
+                    stats += _("**AGI**: {agility}").format(agility=agi) + " - "
                 else:
-                    stats += f"**INT**: {intel} - "
-                stats += f"**Crit**: {round(Decimal(bnet_json['stats']['crit']),2)}% ({bnet_json['stats']['critRating']})\n"
-                stats += f"**Haste**: {round(Decimal(bnet_json['stats']['haste']),2)}% ({bnet_json['stats']['hasteRating']}) - "
-                stats += f"**Mastery**: {round(Decimal(bnet_json['stats']['mastery']),2)}% ({bnet_json['stats']['masteryRating']})\n"
-                stats += f"**Versatility**: D:{round(Decimal(bnet_json['stats']['versatilityDamageDoneBonus']),2)}% B: {round(Decimal(bnet_json['stats']['versatilityDamageTakenBonus']),2)}%({bnet_json['stats']['versatility']})\n"
-                embed.add_field(name="Stats", value=stats, inline=False)
+                    stats += _("**INT**: {intel}").format(intel=intel) + " - "
+                stats += _("**Crit**: {percent}% {rating}").format(percent=round(Decimal(bnet_json['stats']['crit']), 2), rating=bnet_json['stats']['critRating']) + "\n"
+                stats += _("**Haste**: {percent}% {rating}").format(percent=round(Decimal(bnet_json['stats']['haste']), 2), rating=bnet_json['stats']['hasteRating']) + " - "
+                stats += _("**Mastery**: {percent}% {rating}").format(percent=round(Decimal(bnet_json['stats']['mastery']), 2), rating=bnet_json['stats']['masteryRating']) + "\n"
+                stats += _("**Versatility**: D:{percent_damage} B:{percent_block} ({rating})").format(percent_damage=round(Decimal(bnet_json['stats']['versatilityDamageDoneBonus']),2), percent_block=round(Decimal(bnet_json['stats']['versatilityDamageTakenBonus']),2), rating=bnet_json['stats']['versatility']) + "\n"
+                embed.add_field(name=_("Stats"), value=stats, inline=False)
             embed.add_field(name="WoWProgress",
-                            value=f"[Click Here](https://www.wowprogress.com/character/{region}/{realm_name}/{character_name})",
+                            value=_("[Click Here]({url})").format(url=f"https://www.wowprogress.com/character/{region}/{realm_name}/{character_name}"),
                             inline=True)
             embed.add_field(name="Raider.IO",
-                            value=f"[Click Here](https://raider.io/characters/{region}/{realm_name}/{character_name})",
+                            value=_("[Click Here]({url})").format(url=f"https://raider.io/characters/{region}/{realm_name}/{character_name}"),
                             inline=True)
             embed.add_field(name="WarcraftLogs",
-                            value=f"[Click Here](https://www.warcraftlogs.com/character/{region}/{realm_name}/{character_name})",
+                            value=_("[Click Here]({url})").format(url=f"https://www.warcraftlogs.com/character/{region}/{realm_name}/{character_name}"),
                             inline=True)
-            embed.set_footer(text="Information taken from Raider.IO")
+            embed.set_footer(text=_("Information taken from Raider.IO"))
             await ctx.send(embed=embed)
 
     @commands.command()
@@ -311,11 +311,11 @@ class WoW:
         # TODO Allow a parameter to give the guild name.
         guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
         if not guild_server:
-            raise commands.BadArgument("The owner of the server needs to configure at least 1 default guild first!")
+            raise commands.BadArgument(_("The owner of the server needs to configure at least 1 default guild first!"))
         key = os.getenv("WARCRAFTLOGS_KEY")
         wc_request = requests.get(f"https://www.warcraftlogs.com/v1/reports/guild/{guild_server.guild_name}/{guild_server.server_slug}/{guild_server.get_region_display()}", params={"api_key": key})
         if not wc_request.ok:
-            await ctx.send(content="The guild is not found on WarcraftLogs. Does the guild exist on the website?")
+            await ctx.send(content=_("The guild is not found on WarcraftLogs. Does the guild exist on the website?"))
             return
         wc_json = wc_request.json()
         if wc_json:
@@ -324,7 +324,7 @@ class WoW:
             embed.title = log["title"]
             embed.url = f"https://www.warcraftlogs.com/reports/{log['id']}"
             embed.set_thumbnail(url=f"https://dmszsuqyoe6y6.cloudfront.net/img/warcraft/zones/zone-{log['zone']}-small.jpg")
-            embed.add_field(name="Created by", value=log['owner'], inline=True)
+            embed.add_field(name=_("Created by"), value=log['owner'], inline=True)
             embed.timestamp = datetime.datetime.utcfromtimestamp(log['start'] / 1000).replace(tzinfo=simple_utc())
             wc_zones = requests.get("https://www.warcraftlogs.com/v1/zones", params={"api_key": key})
             if wc_zones.ok:
@@ -334,7 +334,7 @@ class WoW:
                         embed.add_field(name="Zone", value=zone['name'], inline=True)
             await ctx.send(embed=embed)
         else:
-            await ctx.send(f"The guild {guild_server.guild_name} got no public logs!")
+            await ctx.send(_("The guild {guild_name} got no public logs!").format(guild_name=guild_server.guild_name))
 
     @commands.command(aliases=["iorank", "wprank"])
     async def rank(self, ctx):
@@ -343,7 +343,7 @@ class WoW:
         """
         guild_server = GuildServer.objects.filter(guild_id=ctx.guild.id, default=True).first()
         if not guild_server:
-            raise commands.BadArgument("The owner of the server needs to configure at least 1 default guild first!")
+            raise commands.BadArgument(_("The owner of the server needs to configure at least 1 default guild first!"))
         query_parameters = {
             "region": guild_server.get_region_display(),
             "realm": guild_server.server_slug,
@@ -352,13 +352,13 @@ class WoW:
         }
         raiderio_request = requests.get("https://raider.io/api/v1/guilds/profile", params=query_parameters)
         if not raiderio_request.ok:
-            await ctx.send(content="The guild is not found on Raider.IO. Does the guild exist on the website?")
+            await ctx.send(content=_("The guild is not found on Raider.IO. Does the guild exist on the website?"))
             return
         ranking_json = raiderio_request.json()
         raid_rankings = ranking_json['raid_rankings']
         embed = Embed()
-        embed.title = f"{guild_server.guild_name}-{guild_server.server_slug} Raid Rankings"
-        embed.add_field(name="Uldir", value=self.__format_ranking(raid_rankings['uldir']), inline=True)
+        embed.title = _("{guild_name}-{server_name} Raid Rankings").format(guild_name=guild_server.guild_name, server_name=guild_server.server_slug)
+        embed.add_field(name=_("Uldir"), value=self.__format_ranking(raid_rankings['uldir']), inline=True)
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -366,7 +366,7 @@ class WoW:
         """
         Let LegendaryBot know your characters.
         """
-        await ctx.send("To link the bot to your characters, please go to https://legendarybot.info/myself")
+        await ctx.send(_("To link the bot to your characters, please go to https://legendarybot.info/myself"))
 
 
 def setup(bot):
@@ -376,63 +376,63 @@ def setup(bot):
 mythicplus_affix = {
     1: {
         "difficulty": 1,
-        "description": "Healing in excess of a target's maximum health is instead converted to a heal absorption effect.",
+        "description": _("Healing in excess of a target's maximum health is instead converted to a heal absorption effect."),
     },
     2: {
         "difficulty": 2,
-        "description": "Enemies pay far less attention to threat generated by tanks. 80% Threat reduction.",
+        "description": _("Enemies pay far less attention to threat generated by tanks. 80% Threat reduction."),
     },
     3: {
         "difficulty": 0,
-        "description": "While in combat, enemies periodically cause gouts of flame to erupt beneath the feet of distant players.",
+        "description": _("While in combat, enemies periodically cause gouts of flame to erupt beneath the feet of distant players."),
     },
     4: {
         "difficulty": 2,
-        "description": "All enemies' melee attacks apply a stacking blight that inflicts damage over time and reduces healing received.",
+        "description": _("All enemies' melee attacks apply a stacking blight that inflicts damage over time and reduces healing received."),
     },
     5: {
         "difficulty": 1,
-        "description": "Additional non-boss enemies are present throughout the dungeon.",
+        "description": _("Additional non-boss enemies are present throughout the dungeon."),
     },
     6: {
         "difficulty": 1,
-        "description": "Non-boss enemies enrage at 30% health remaining, dealing 100% increased damage until defeated.",
+        "description": _("Non-boss enemies enrage at 30% health remaining, dealing 100% increased damage until defeated."),
     },
     7: {
         "difficulty": 1,
-        "description": "When any non-boss enemy dies, its death cry empowers nearby allies, increasing their maximum health and damage by 20%.",
+        "description": _("When any non-boss enemy dies, its death cry empowers nearby allies, increasing their maximum health and damage by 20%."),
     },
     8: {
         "difficulty": 0,
-        "description": "When slain, non-boss enemies leave behind a lingering pool of ichor that heals their allies and damages players.",
+        "description": _("When slain, non-boss enemies leave behind a lingering pool of ichor that heals their allies and damages players."),
     },
     9: {
         "difficulty": 2,
-        "description": "Boss enemies have 40% more health and inflict up to 15% increased damage.",
+        "description": _("Boss enemies have 40% more health and inflict up to 15% increased damage."),
     },
     10: {
         "difficulty": 2,
-        "description": "Non-boss enemies have 20% more health and inflict up to 30% increased damage.",
+        "description": _("Non-boss enemies have 20% more health and inflict up to 30% increased damage."),
     },
     11: {
         "difficulty": 1,
-        "description": "When slain, non-boss enemies explode, causing all players to suffer 10% of their max health in damage over 4 sec. This effect stacks.",
+        "description": _("When slain, non-boss enemies explode, causing all players to suffer 10% of their max health in damage over 4 sec. This effect stacks."),
     },
     12: {
         "difficulty": 1,
-        "description": "When injured below 90% health, players will suffer increasing damage over time until healed above 90% health.",
+        "description": _("When injured below 90% health, players will suffer increasing damage over time until healed above 90% health."),
     },
     13: {
         "difficulty": 1,
-        "description": "While in combat, enemies periodically summon Explosive Orbs that will detonate if not destroyed.",
+        "description": _("While in combat, enemies periodically summon Explosive Orbs that will detonate if not destroyed."),
     },
     14: {
         "difficulty": 1,
-        "description": "Periodically, all players emit a shockwave, inflicting damage and interrupting nearby allies.",
+        "description": _("Periodically, all players emit a shockwave, inflicting damage and interrupting nearby allies."),
     },
     16: {
         "difficulty": 0,
-        "description": "Some non-boss enemies have been infested with a Spawn of G'huun."
+        "description": _("Some non-boss enemies have been infested with a Spawn of G'huun.")
     }
 
 }
