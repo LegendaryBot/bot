@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2018-10-21 06:41\n"
+"PO-Revision-Date: 2018-11-07 11:01\n"
 "Last-Translator: greatman <lebelwilliam@gmail.com>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -31,19 +31,19 @@ msgstr ""
 
 #: cogs/custom_commands.py:63
 msgid "Command {command_name} updated!"
-msgstr ""
+msgstr "Команда {command_name} обновлена!"
 
 #: cogs/custom_commands.py:67
 msgid "Command {command_name} created!"
-msgstr ""
+msgstr "Команда {command_name} создана!"
 
 #: cogs/custom_commands.py:82
 msgid "Command {command_name} removed!"
-msgstr ""
+msgstr "Команда {command_name} удалена!"
 
 #: cogs/custom_commands.py:84
 msgid "Command {command_name} not found!"
-msgstr ""
+msgstr "Команда {command_name} не найдена!"
 
 #: cogs/meta.py:28
 msgid "LegendaryBot prefixes configured."
@@ -205,11 +205,11 @@ msgstr ""
 
 #: cogs/worldofwarcraft.py:84
 msgid "Information taken from https://wowtoken.info"
-msgstr ""
+msgstr "Информация взята с https://wowtoken.info"
 
 #: cogs/worldofwarcraft.py:87
 msgid "Current Price"
-msgstr ""
+msgstr "Текущая цена"
 
 #: cogs/worldofwarcraft.py:88
 msgid "Minimum 24H"
@@ -289,7 +289,7 @@ msgstr ""
 
 #: cogs/worldofwarcraft.py:237
 msgid "iLVL"
-msgstr ""
+msgstr "иЛВЛ"
 
 #: cogs/worldofwarcraft.py:240
 msgid "Current Mythic+ Score"
