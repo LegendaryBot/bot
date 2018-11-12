@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2018-11-12 09:39\n"
+"PO-Revision-Date: 2018-11-12 09:49\n"
 "Last-Translator: greatman <lebelwilliam@gmail.com>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -75,54 +75,57 @@ msgstr "LegendaryBot"
 
 #: cogs/meta.py:81
 msgid "Created using Discord.py. Type @LegendaryBot help to show all the commands."
-msgstr ""
+msgstr "Erstellt mit Discord.py. Schreibe @LegendayBot help um alle möglichen Befehle zu sehen."
 
 #: cogs/meta.py:89
 msgid "To invite LegendaryBot to your server. Click this link: <{link}>"
-msgstr ""
+msgstr "Klicke {link} um den LegendayBot zum Server einzuladen"
 
 #: cogs/music.py:66
 msgid "```ini\n"
 "[Added {song_title} to the Queue.]\n"
 "```"
-msgstr ""
+msgstr "```ini\n"
+"[ {song_title} in die Warteschleife hinzugefügt.]\n"
+"```"
 
 #: cogs/music.py:122
 msgid "There was an error processing your song."
-msgstr ""
+msgstr "Beim Verarbeiten Ihres Songs ist ein Fehler aufgetreten."
 
 #: cogs/music.py:131
 msgid "```ini\n"
 "[Now playing {song_title}. Requested by {requester}]```"
-msgstr ""
+msgstr "```ini\n"
+"[Es wird {song_title} gespielt. Beantragt durch {requester}]```"
 
 #: cogs/music.py:180
 msgid "The minimum volume is 0 and the maximum is 100."
-msgstr ""
+msgstr "Die Minimum Lautstärke ist 0 und das Maximum ist 100."
 
 #: cogs/music.py:182
 msgid "Not connected to a voice channel."
-msgstr ""
+msgstr "Nicht mit einem Voice Channel verbunden."
 
 #: cogs/music.py:190
 msgid "Changed volume to {volume}%"
-msgstr ""
+msgstr "Lautstärke geändert auf: {volume}%"
 
 #: cogs/music.py:203 cogs/music.py:216 cogs/music.py:253 cogs/music.py:263
 msgid "I am not currently playing anything!"
-msgstr ""
+msgstr "Momentan spiele ich gerade nicht ab!"
 
 #: cogs/music.py:208
 msgid "**`{user}`**: Paused the song!"
-msgstr ""
+msgstr "**`{user}`**. pausiert das Lied!"
 
 #: cogs/music.py:221
 msgid "**`{user}`**: Resumed the song!"
-msgstr ""
+msgstr "**`{user}`**. Starte den Song erneut!"
 
 #: cogs/music.py:229 cogs/music.py:249
 msgid "I am not currently connected to voice!"
-msgstr ""
+msgstr "Ich bin derzeit nicht mit einem Voice Channel verbunden!"
 
 #: cogs/music.py:233
 msgid "There are currently no more queued songs."
