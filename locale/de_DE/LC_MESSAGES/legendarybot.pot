@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2018-10-21 06:41\n"
+"PO-Revision-Date: 2018-11-12 09:39\n"
 "Last-Translator: greatman <lebelwilliam@gmail.com>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -19,59 +19,59 @@ msgstr ""
 
 #: cogs/custom_commands.py:13
 msgid "The only valid custom command type are: text"
-msgstr ""
+msgstr "Die einzigen gültigen benutzerdefinierten Befehle sind: text"
 
 #: cogs/custom_commands.py:37
 msgid "Custom commands for the {guild_name} server."
-msgstr ""
+msgstr "Benutzerdefinierte Befehle für den {guild_name} Server."
 
 #: cogs/custom_commands.py:42
 msgid "No custom commands!"
-msgstr ""
+msgstr "Keine freien Befehle!"
 
 #: cogs/custom_commands.py:63
 msgid "Command {command_name} updated!"
-msgstr ""
+msgstr "Befehl {command_name} geändert!"
 
 #: cogs/custom_commands.py:67
 msgid "Command {command_name} created!"
-msgstr ""
+msgstr "Befehl {command_name} erstellt!"
 
 #: cogs/custom_commands.py:82
 msgid "Command {command_name} removed!"
-msgstr ""
+msgstr "Befehl {command_name} gelöscht!"
 
 #: cogs/custom_commands.py:84
 msgid "Command {command_name} not found!"
-msgstr ""
+msgstr "Befehl {command_name} nicht gefunden!"
 
 #: cogs/meta.py:28
 msgid "LegendaryBot prefixes configured."
-msgstr ""
+msgstr "LegendayBot Prefix konfiguriert."
 
 #: cogs/meta.py:32
 msgid "No prefixes set."
-msgstr ""
+msgstr "Kein Prefix gesetzt."
 
 #: cogs/meta.py:52
 msgid "Prefix {prefix} added to the server."
-msgstr ""
+msgstr "Prefix {prefix} für den Server gesetzt."
 
 #: cogs/meta.py:54
 msgid "Prefix {prefix} not set. Already existing."
-msgstr ""
+msgstr "Prefix {prefix} nicht erstellt. Er wird schon genutzt."
 
 #: cogs/meta.py:70
 msgid "Prefix {prefix} removed from the server"
-msgstr ""
+msgstr "Prefix {prefix} vom Server gelöscht"
 
 #: cogs/meta.py:72
 msgid "Prefix {prefix} does not exist."
-msgstr ""
+msgstr "Prefix {prefix} ist nicht vorhanden."
 
 #: cogs/meta.py:79
 msgid "LegendaryBot"
-msgstr ""
+msgstr "LegendaryBot"
 
 #: cogs/meta.py:81
 msgid "Created using Discord.py. Type @LegendaryBot help to show all the commands."
