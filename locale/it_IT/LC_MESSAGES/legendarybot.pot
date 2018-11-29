@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2018-11-29 16:42\n"
+"PO-Revision-Date: 2018-11-29 16:52\n"
 "Last-Translator: greatman <lebelwilliam@gmail.com>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -400,60 +400,60 @@ msgstr "Mentre combatti, i nemici causano periodicamente fiammate eruttanti tra 
 
 #: cogs/worldofwarcraft.py:391
 msgid "All enemies' melee attacks apply a stacking blight that inflicts damage over time and reduces healing received."
-msgstr ""
+msgstr "Tutti gli attacchi in mischia dei nemici si applicano ad un flagello che infligge danno nel tempo e riduce la guarigione ricevuta."
 
 #: cogs/worldofwarcraft.py:395
 msgid "Additional non-boss enemies are present throughout the dungeon."
-msgstr ""
+msgstr "Nemici non boss aggiuntivi sono presenti per tutto il dungeon."
 
 #: cogs/worldofwarcraft.py:399
 #, python-format
 msgid "Non-boss enemies enrage at 30% health remaining, dealing 100% increased damage until defeated."
-msgstr ""
+msgstr "I nemici non boss si infuriano al 30% della salute rimanente, infliggendo il 100% dei danni aumentati fino alla sconfitta."
 
 #: cogs/worldofwarcraft.py:403
 msgid "When any non-boss enemy dies, its death cry empowers nearby allies, increasing their maximum health and damage by 20%."
-msgstr ""
+msgstr "Quando qualsiasi nemico non boss muore, il suo grido di morte potenzia gli alleati nelle vicinanze, aumentando la loro salute massima ed il danno del 20%."
 
 #: cogs/worldofwarcraft.py:407
 msgid "When slain, non-boss enemies leave behind a lingering pool of ichor that heals their allies and damages players."
-msgstr ""
+msgstr "Quando uccisi, i nemici non boss lasciano dietro di sè una pozza che cura i loro alleati e danneggia i giocatori."
 
 #: cogs/worldofwarcraft.py:411
 #, python-format
 msgid "Boss enemies have 40% more health and inflict up to 15% increased damage."
-msgstr ""
+msgstr "I boss nemici hanno il 40% di salute in più ed infliggono fino al 15% di danno aumentato."
 
 #: cogs/worldofwarcraft.py:415
 #, python-format
 msgid "Non-boss enemies have 20% more health and inflict up to 30% increased damage."
-msgstr ""
+msgstr "I nemici non boss hanno il 20% di salute in più ed infliggono fino al 30% di danno aumentato."
 
 #: cogs/worldofwarcraft.py:419
 #, python-format
 msgid "When slain, non-boss enemies explode, causing all players to suffer 10% of their max health in damage over 4 sec. This effect stacks."
-msgstr ""
+msgstr "Quando ucciso, i nemici non boss esplodono, causando a tutti i giocatori di soffrire il 10% della loro salute massima in danno per oltre 4 secondi. Questo effetto rimane."
 
 #: cogs/worldofwarcraft.py:423
 #, python-format
 msgid "When injured below 90% health, players will suffer increasing damage over time until healed above 90% health."
-msgstr ""
+msgstr "Quando feriti sotto il 90% di salute, i giocatori soffriranno di danno aumentato nel tempo finchè curati sopra il 90% della salute."
 
 #: cogs/worldofwarcraft.py:427
 msgid "While in combat, enemies periodically summon Explosive Orbs that will detonate if not destroyed."
-msgstr ""
+msgstr "Mentre in combattimento, i nemici aggiungo Sfere Esplosive periodicamente che si detoneranno se non distrutte."
 
 #: cogs/worldofwarcraft.py:431
 msgid "Periodically, all players emit a shockwave, inflicting damage and interrupting nearby allies."
-msgstr ""
+msgstr "Periodicamente, tutti i giocatori emettono un'onda d'urto, infliggendo danno ed interrompendo gli alleati nelle vicinanze."
 
 #: cogs/worldofwarcraft.py:435
 msgid "Some non-boss enemies have been infested with a Spawn of G'huun."
-msgstr ""
+msgstr "Alcuni nemici non-boss sono stati infestati con uno Spawn di G'huun."
 
 #: legendarybot/bot.py:78
 msgid "This command cannot be used in private messages."
-msgstr ""
+msgstr "Questo comando non può essere usato nei messagi privati."
 
 #: legendarybot/bot.py:80
 msgid "Sorry. This command is disabled and cannot be used."
