@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2018-11-29 15:02\n"
+"PO-Revision-Date: 2018-11-29 16:32\n"
 "Last-Translator: greatman <lebelwilliam@gmail.com>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -168,63 +168,66 @@ msgid "The Sync system allows you to have your Discord Rank Synced to your ingam
 "For Server owners: Go on https://legendarybot.info, go in your server settings and configure the WoW Servers and the WoW Ranks section. \n"
 "This feature is still in BETA, which means it needs to be enabled by the bot owner (Greatman). Contact him here: https://discord.gg/Cr7G28H\n"
 "For Users: Go on https://legendarybot.info, go in the Myself section and sync your Battle.Net account with the website. Then, select which character is the main character in the discord server you want."
-msgstr ""
+msgstr "Il sistema di Sincronizzazione ti consente di avere il tuo Rango di Discord Sincronizzato al tuo rango di gilda di WoW in gioco.\n"
+"Per i proprietari del Server: Vai su https://legendarybot.info, vai nelle tue impostazioni del server e configura i Server WoW e la sezione Ranghi WoW. \n"
+"Questa funzione è ancora in BETA, il che significa che necessita di essere abilitata dal proprietario del bot (Greatman). Contattalo qui: https://discord.gg/Cr7G28H\n"
+"Per gli Utenti: Vai su https://legendarybot.info, vai nella sezione Myself e sincronizza il tuo profilo Battle.Net con il sito web. Poi, seleziona quale carattere è il protagonista che vuoi nel tuo server Discord."
 
 #: cogs/worldofwarcraft.py:40
 msgid "World: **{world}**"
-msgstr ""
+msgstr "Mondo: **{world}**"
 
 #: cogs/worldofwarcraft.py:41
 msgid "Region: **{region}**"
-msgstr ""
+msgstr "Regione: **{region}**"
 
 #: cogs/worldofwarcraft.py:42
 msgid "Realm: **{realm}**"
-msgstr ""
+msgstr "Reame: **{realm}**"
 
 #: cogs/worldofwarcraft.py:44
 msgid "**Not started**"
-msgstr ""
+msgstr "**Non avviato**"
 
 #: cogs/worldofwarcraft.py:53
 msgid "**Normal**"
-msgstr ""
+msgstr "**Normale**"
 
 #: cogs/worldofwarcraft.py:56
 msgid "**Heroic**"
-msgstr ""
+msgstr "**Eroico**"
 
 #: cogs/worldofwarcraft.py:59
 msgid "**Mythic**"
-msgstr ""
+msgstr "**Mitico**"
 
 #: cogs/worldofwarcraft.py:75
 msgid "You are required to type the region. Supported regions are: NA/EU/CN/TW/KR"
-msgstr ""
+msgstr "Ti è richiesto di digitare la regione. Regioni supportate sono: NA/EU/CN/TW/KR"
 
 #: cogs/worldofwarcraft.py:82
 msgid "Price for 1 WoW Token in the {region} region"
-msgstr ""
+msgstr "Prezzo per 1 Token WoW nella regione {region}"
 
 #: cogs/worldofwarcraft.py:84
 msgid "Information taken from https://wowtoken.info"
-msgstr ""
+msgstr "Informazioni prese da https://wowtoken.info"
 
 #: cogs/worldofwarcraft.py:87
 msgid "Current Price"
-msgstr ""
+msgstr "Prezzo Corrente"
 
 #: cogs/worldofwarcraft.py:88
 msgid "Minimum 24H"
-msgstr ""
+msgstr "Minimo 24H"
 
 #: cogs/worldofwarcraft.py:89
 msgid "Maximum 24H"
-msgstr ""
+msgstr "Massimo 24H"
 
 #: cogs/worldofwarcraft.py:90
 msgid "Percentage 24H Range"
-msgstr ""
+msgstr "Rango Percentuale 24H"
 
 #: cogs/worldofwarcraft.py:93
 msgid "Region not found. Supported regions are: NA/EU/CN/TW/KR"
