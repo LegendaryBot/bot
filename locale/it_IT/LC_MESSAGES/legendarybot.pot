@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2018-11-29 16:32\n"
+"PO-Revision-Date: 2018-11-29 16:42\n"
 "Last-Translator: greatman <lebelwilliam@gmail.com>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -231,172 +231,172 @@ msgstr "Rango Percentuale 24H"
 
 #: cogs/worldofwarcraft.py:93
 msgid "Region not found. Supported regions are: NA/EU/CN/TW/KR"
-msgstr ""
+msgstr "Regione non trovata. Regioni supportate sono: NA/EU/CN/TW/KR"
 
 #: cogs/worldofwarcraft.py:109
 msgid "You are required to type a realm."
-msgstr ""
+msgstr "Ti è richiesto di digitare un reame."
 
 #: cogs/worldofwarcraft.py:129
 msgid "Status"
-msgstr ""
+msgstr "Stato"
 
 #: cogs/worldofwarcraft.py:129
 msgid "Online"
-msgstr ""
+msgstr "Online"
 
 #: cogs/worldofwarcraft.py:129
 msgid "Offline"
-msgstr ""
+msgstr "Offline"
 
 #: cogs/worldofwarcraft.py:130
 msgid "Population"
-msgstr ""
+msgstr "Popolazione"
 
 #: cogs/worldofwarcraft.py:131
 msgid "Currently a Queue?"
-msgstr ""
+msgstr "Correntemente una Coda?"
 
 #: cogs/worldofwarcraft.py:131
 msgid "Yes"
-msgstr ""
+msgstr "Sì"
 
 #: cogs/worldofwarcraft.py:131
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: cogs/worldofwarcraft.py:134
 msgid "Realm not found. Did you make a mistake?"
-msgstr ""
+msgstr "Reame non trovato. Hai fatto un errore?"
 
 #: cogs/worldofwarcraft.py:184 cogs/worldofwarcraft.py:186
 msgid "You must enter a character name."
-msgstr ""
+msgstr "Devi inserire un nome carattere."
 
 #: cogs/worldofwarcraft.py:193
 msgid "You must put the realm and the region."
-msgstr ""
+msgstr "Devi inserire il reame e la regione."
 
 #: cogs/worldofwarcraft.py:197
 msgid "The only valid regions are US or EU."
-msgstr ""
+msgstr "Le uniche regioni valide sono US o EU."
 
 #: cogs/worldofwarcraft.py:221
 msgid "Character not found! Does it exist on Raider.IO?"
-msgstr ""
+msgstr "Carattere non trovato! Esiste su Raider.IO?"
 
 #: cogs/worldofwarcraft.py:234
 msgid "Progression"
-msgstr ""
+msgstr "Progressione"
 
 #: cogs/worldofwarcraft.py:235
 msgid "**Uldir **: {progression}"
-msgstr ""
+msgstr "**Uldir **: {progression}"
 
 #: cogs/worldofwarcraft.py:237
 msgid "iLVL"
-msgstr ""
+msgstr "iLVL"
 
 #: cogs/worldofwarcraft.py:240
 msgid "Current Mythic+ Score"
-msgstr ""
+msgstr "Punteggio Mythic+ Corrente"
 
 #: cogs/worldofwarcraft.py:242
 msgid "Last Mythic+ Season Score"
-msgstr ""
+msgstr "Ultimo Punteggio Stagione Mythic+"
 
 #: cogs/worldofwarcraft.py:256
 msgid "Best Mythic+ Runs"
-msgstr ""
+msgstr "Migliori Corse Mythic+"
 
 #: cogs/worldofwarcraft.py:278
 msgid "Mythic+ Completed"
-msgstr ""
+msgstr "Mythic+ Completato"
 
 #: cogs/worldofwarcraft.py:284
 msgid "**STR**: {strength}"
-msgstr ""
+msgstr "**STR**: {strength}"
 
 #: cogs/worldofwarcraft.py:286
 msgid "**AGI**: {agility}"
-msgstr ""
+msgstr "**AGI**: {agility}"
 
 #: cogs/worldofwarcraft.py:288
 msgid "**INT**: {intel}"
-msgstr ""
+msgstr "**INT**: {intel}"
 
 #: cogs/worldofwarcraft.py:289
 msgid "**Crit**: {percent}% {rating}"
-msgstr ""
+msgstr "**Crit**: {percent}% {rating}"
 
 #: cogs/worldofwarcraft.py:290
 msgid "**Haste**: {percent}% {rating}"
-msgstr ""
+msgstr "**Haste**: {percent}% {rating}"
 
 #: cogs/worldofwarcraft.py:291
 msgid "**Mastery**: {percent}% {rating}"
-msgstr ""
+msgstr "**Maestria**: {percent}% {rating}"
 
 #: cogs/worldofwarcraft.py:292
 msgid "**Versatility**: D:{percent_damage} B:{percent_block} ({rating})"
-msgstr ""
+msgstr "**Versatilità**: D:{percent_damage} B:{percent_block} ({rating})"
 
 #: cogs/worldofwarcraft.py:293
 msgid "Stats"
-msgstr ""
+msgstr "Statistiche"
 
 #: cogs/worldofwarcraft.py:295 cogs/worldofwarcraft.py:298
 #: cogs/worldofwarcraft.py:301
 msgid "[Click Here]({url})"
-msgstr ""
+msgstr "[Clicca Qui]({url})"
 
 #: cogs/worldofwarcraft.py:303
 msgid "Information taken from Raider.IO"
-msgstr ""
+msgstr "Informazioni prese da Raider.IO"
 
 #: cogs/worldofwarcraft.py:314 cogs/worldofwarcraft.py:346
 msgid "The owner of the server needs to configure at least 1 default guild first!"
-msgstr ""
+msgstr "Il proprietario del server necessita di configurare almeno 1 gilda predefinita prima!"
 
 #: cogs/worldofwarcraft.py:318
 msgid "The guild is not found on WarcraftLogs. Does the guild exist on the website?"
-msgstr ""
+msgstr "La gilda non si trova su WarcraftLogs. La gilda esiste sul sito web?"
 
 #: cogs/worldofwarcraft.py:327
 msgid "Created by"
-msgstr ""
+msgstr "Creato da"
 
 #: cogs/worldofwarcraft.py:337
 msgid "The guild {guild_name} got no public logs!"
-msgstr ""
+msgstr "La gilda {guild_name} non ha registro pubblico!"
 
 #: cogs/worldofwarcraft.py:355
 msgid "The guild is not found on Raider.IO. Does the guild exist on the website?"
-msgstr ""
+msgstr "La gilda non si trova su Raider.IO. La gilda esiste sul sito web?"
 
 #: cogs/worldofwarcraft.py:360
 msgid "{guild_name}-{server_name} Raid Rankings"
-msgstr ""
+msgstr "{guild_name}-{server_name} Valutazioni Raid"
 
 #: cogs/worldofwarcraft.py:361
 msgid "Uldir"
-msgstr ""
+msgstr "Uldir"
 
 #: cogs/worldofwarcraft.py:369
 msgid "To link the bot to your characters, please go to https://legendarybot.info/myself"
-msgstr ""
+msgstr "Per collegare il bot ai tuoi personaggi, perfavore vai a https://legendarybot.info/myself"
 
 #: cogs/worldofwarcraft.py:379
 msgid "Healing in excess of a target's maximum health is instead converted to a heal absorption effect."
-msgstr ""
+msgstr "La guarigione in eccesso della salute massima di un obiettivo è invece convertita ad un effetto di assorbimento cura."
 
 #: cogs/worldofwarcraft.py:383
 msgid "Enemies pay far less attention to threat generated by tanks. 80% Threat reduction."
-msgstr ""
+msgstr "I nemici pagano molta meno attenzione alla minaccia generata dai carri armati. Riduzione dell'80% della minaccia."
 
 #: cogs/worldofwarcraft.py:387
 msgid "While in combat, enemies periodically cause gouts of flame to erupt beneath the feet of distant players."
-msgstr ""
+msgstr "Mentre combatti, i nemici causano periodicamente fiammate eruttanti tra i piedi dei giocatori distanti."
 
 #: cogs/worldofwarcraft.py:391
 msgid "All enemies' melee attacks apply a stacking blight that inflicts damage over time and reduces healing received."
