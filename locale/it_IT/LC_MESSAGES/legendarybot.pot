@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2018-10-21 06:41\n"
+"PO-Revision-Date: 2018-11-29 14:51\n"
 "Last-Translator: greatman <lebelwilliam@gmail.com>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -19,63 +19,63 @@ msgstr ""
 
 #: cogs/custom_commands.py:13
 msgid "The only valid custom command type are: text"
-msgstr ""
+msgstr "I soli tipi di comandi personalizzati validi sono: testo"
 
 #: cogs/custom_commands.py:37
 msgid "Custom commands for the {guild_name} server."
-msgstr ""
+msgstr "Comandi personalizzati per il server {guild_name}."
 
 #: cogs/custom_commands.py:42
 msgid "No custom commands!"
-msgstr ""
+msgstr "Nessun comando personalizzato!"
 
 #: cogs/custom_commands.py:63
 msgid "Command {command_name} updated!"
-msgstr ""
+msgstr "Comando {command_name} aggiornato!"
 
 #: cogs/custom_commands.py:67
 msgid "Command {command_name} created!"
-msgstr ""
+msgstr "Comando {command_name} creato!"
 
 #: cogs/custom_commands.py:82
 msgid "Command {command_name} removed!"
-msgstr ""
+msgstr "Comando {command_name} rimosso!"
 
 #: cogs/custom_commands.py:84
 msgid "Command {command_name} not found!"
-msgstr ""
+msgstr "Comando {command_name} non trovato!"
 
 #: cogs/meta.py:28
 msgid "LegendaryBot prefixes configured."
-msgstr ""
+msgstr "Prefissi LegendaryBot configurato."
 
 #: cogs/meta.py:32
 msgid "No prefixes set."
-msgstr ""
+msgstr "Nessun prefisso impostato."
 
 #: cogs/meta.py:52
 msgid "Prefix {prefix} added to the server."
-msgstr ""
+msgstr "Prefisso {prefix} aggiunto al server."
 
 #: cogs/meta.py:54
 msgid "Prefix {prefix} not set. Already existing."
-msgstr ""
+msgstr "Prefisso {prefix} non impostato. Già esistente."
 
 #: cogs/meta.py:70
 msgid "Prefix {prefix} removed from the server"
-msgstr ""
+msgstr "Prefisso {prefix} rimosso dal server"
 
 #: cogs/meta.py:72
 msgid "Prefix {prefix} does not exist."
-msgstr ""
+msgstr "Prefisso {prefix} non esiste."
 
 #: cogs/meta.py:79
 msgid "LegendaryBot"
-msgstr ""
+msgstr "LegendaryBot"
 
 #: cogs/meta.py:81
 msgid "Created using Discord.py. Type @LegendaryBot help to show all the commands."
-msgstr ""
+msgstr "Creato usando Discord.py. Digita @LegendaryBot aiuta a mostrare tutti i comandi."
 
 #: cogs/meta.py:89
 msgid "To invite LegendaryBot to your server. Click this link: <{link}>"
