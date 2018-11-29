@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2018-11-29 14:51\n"
+"PO-Revision-Date: 2018-11-29 15:02\n"
 "Last-Translator: greatman <lebelwilliam@gmail.com>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -79,86 +79,89 @@ msgstr "Creato usando Discord.py. Digita @LegendaryBot aiuta a mostrare tutti i 
 
 #: cogs/meta.py:89
 msgid "To invite LegendaryBot to your server. Click this link: <{link}>"
-msgstr ""
+msgstr "Per invitare LegendaryBot al tuo server. Clicca questo link: <{link}>"
 
 #: cogs/music.py:66
 msgid "```ini\n"
 "[Added {song_title} to the Queue.]\n"
 "```"
-msgstr ""
+msgstr "```ini\n"
+"[Aggiunta {song_title} alla Coda.]\n"
+"```"
 
 #: cogs/music.py:122
 msgid "There was an error processing your song."
-msgstr ""
+msgstr "C'è stato un errore elaborando la tua canzone."
 
 #: cogs/music.py:131
 msgid "```ini\n"
 "[Now playing {song_title}. Requested by {requester}]```"
-msgstr ""
+msgstr "```ini\n"
+"[Ora riproducendo {song_title}. Richiesta da {requester}]```"
 
 #: cogs/music.py:180
 msgid "The minimum volume is 0 and the maximum is 100."
-msgstr ""
+msgstr "Il volume minimo è 0 ed il massimo è 100."
 
 #: cogs/music.py:182
 msgid "Not connected to a voice channel."
-msgstr ""
+msgstr "Non connesso ad un canale vocale."
 
 #: cogs/music.py:190
 msgid "Changed volume to {volume}%"
-msgstr ""
+msgstr "Volume cambiato a {volume}%"
 
 #: cogs/music.py:203 cogs/music.py:216 cogs/music.py:253 cogs/music.py:263
 msgid "I am not currently playing anything!"
-msgstr ""
+msgstr "Non sto riproducendo niente correntemente!"
 
 #: cogs/music.py:208
 msgid "**`{user}`**: Paused the song!"
-msgstr ""
+msgstr "**`{user}`**: Canzone fermata!"
 
 #: cogs/music.py:221
 msgid "**`{user}`**: Resumed the song!"
-msgstr ""
+msgstr "**`{user}`**: Canzone ripresa!"
 
 #: cogs/music.py:229 cogs/music.py:249
 msgid "I am not currently connected to voice!"
-msgstr ""
+msgstr "Non sono connesso alla voce correntemente!"
 
 #: cogs/music.py:233
 msgid "There are currently no more queued songs."
-msgstr ""
+msgstr "Non ci sono canzoni accodate correntemente."
 
 #: cogs/music.py:239
 msgid "Upcoming - Next {songs}"
-msgstr ""
+msgstr "Imminente - Prossima {songs}"
 
 #: cogs/music.py:255
 msgid "**Now Playing:** `{title}` requested by `{requester}`"
-msgstr ""
+msgstr "**Riproducendo Ora:** `{title}` richiesta da `{requester}`"
 
 #: cogs/music.py:271
 msgid "**`{user}`**: Skipped the song!"
-msgstr ""
+msgstr "**`{user}`**: Canzone saltata!"
 
 #: cogs/music.py:279
 msgid "You are not connected to a voice channel."
-msgstr ""
+msgstr "Non sei connesso ad un canale vocale."
 
 #: cogs/music.py:280
 msgid "Author not connected to a voice channel."
-msgstr ""
+msgstr "Autore non connesso ad un canale vocale."
 
 #: cogs/rank_system.py:171
 msgid "Guild Rank Sync started. It may take some minutes to apply. Check the server Audit log for any changes."
-msgstr ""
+msgstr "Sincronizzazione Rango Gilda avviata. Potrebbe richiedere qualche minuto per applicare. Controlla il registro Audit del server per ogni modifica."
 
 #: cogs/rank_system.py:173 cogs/rank_system.py:186
 msgid "The Rank System is not enabled. Please ask bot author to enable it."
-msgstr ""
+msgstr "Il Sistema di Rango non è abilitato. Per favore chiedere all'autore di abilitarlo."
 
 #: cogs/rank_system.py:184
 msgid "Your rank is being synced. It may take some minutes to apply."
-msgstr ""
+msgstr "Il tuo rango è stato sincronizzato. Potrebbe richiedere qualche minuto per applicare."
 
 #: cogs/rank_system.py:193
 msgid "The Sync system allows you to have your Discord Rank Synced to your ingame WoW guild rank.\n"
