@@ -192,10 +192,11 @@ class WoW:
             else:
                 raise commands.BadArgument(_("You must put the realm and the region."))
 
-        region = region.lower()
-        if region != "us" and region != "eu":
+
+        if region and region.lower() != "us" and region.lower() != "eu":
             raise commands.BadArgument(_("The only valid regions are US or EU."))
 
+        region = region.lower()
         realm_name = slugify(realm_name)
         not_ok = True
 
