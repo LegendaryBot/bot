@@ -192,8 +192,10 @@ class WoW:
             else:
                 raise commands.BadArgument(_("You must put the realm and the region."))
 
-
-        if not region and region.lower() != "us" and region.lower() != "eu":
+        if not region:
+            raise commands.BadArgument(_("The only valid regions are US or EU."))
+        
+        if region.lower() != "us" and region.lower() != "eu":
             raise commands.BadArgument(_("The only valid regions are US or EU."))
 
         region = region.lower()
