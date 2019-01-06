@@ -9,7 +9,7 @@ cffi==1.11.5
 chardet==3.0.4
 dblpy==0.1.6
 defusedxml==0.5.0
-discord.py==git+https://github.com/Rapptz/discord.py@rewrite#egg=discord.py[voice]
+git+https://github.com/Rapptz/discord.py@rewrite#egg=discord.py[voice]
 Django==2.1.2
 django-bootstrap4==0.0.6
 django-sslserver==0.20
@@ -19,7 +19,7 @@ idna==2.7
 idna-ssl==1.1.0
 influxdb==5.2.0
 jmespath==0.9.3
-legendarybot-website==git+https://github.com/LegendaryBot/website.git
+git+https://github.com/LegendaryBot/website.git
 multidict==4.3.1
 oauthlib==2.1.0
 psycopg2==2.7.5
@@ -43,4 +43,4 @@ Unidecode==1.0.22
 urllib3==1.23
 websockets==6.0
 yarl==1.2.6
-youtube-dl==2018.10.5
+youtube-dl==2019.1.2
