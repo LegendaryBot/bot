@@ -235,7 +235,7 @@ class WoW:
                 icon_url=get_class_icon(raiderio['class']), url=wow_link)
             raid_progression = raiderio['raid_progression']
             embed.add_field(name=_("Progression"),
-                            value=_("**Uldir **: {progression}").format(progression=raid_progression['uldir']['summary']),
+                            value=_("**BoD** : {bodprogression} **Uldir **: {progression}").format(progression=raid_progression['uldir']['summary'], bodprogression=raid_progression["battle-of-dazaralor"]["summary"]),
                             inline=False)
             embed.add_field(name=_("iLVL"),
                             value=f"{raiderio['gear']['item_level_equipped']}/{raiderio['gear']['item_level_total']}",
@@ -361,6 +361,7 @@ class WoW:
         raid_rankings = ranking_json['raid_rankings']
         embed = Embed()
         embed.title = _("{guild_name}-{server_name} Raid Rankings").format(guild_name=guild_server.guild_name, server_name=guild_server.server_slug)
+        embed.add_field(name=_("Battle of Dazar'alor"), value=self.__format_ranking(raid_rankings['battle-of-dazaralor']), inline=True)
         embed.add_field(name=_("Uldir"), value=self.__format_ranking(raid_rankings['uldir']), inline=True)
         await ctx.send(embed=embed)
 
