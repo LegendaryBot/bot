@@ -306,7 +306,7 @@ class WoW:
             embed.set_footer(text=_("Information taken from Raider.IO"))
             await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(aliases=["logs"])
     async def log(self, ctx):
         """
         Retrieve the latest log from WarcraftLogs for your guild.
