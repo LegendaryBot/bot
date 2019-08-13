@@ -235,7 +235,7 @@ class WoW:
                 icon_url=get_class_icon(raiderio['class']), url=wow_link)
             raid_progression = raiderio['raid_progression']
             embed.add_field(name=_("Progression"),
-                            value=_("**EP** : {epprogression} **CoS**: {cosprogression} **BoD** : {bodprogression} **Uldir **: {progression}").format(progression=raid_progression['uldir']['summary'], bodprogression=raid_progression["battle-of-dazaralor"]["summary"], cosprogression=raid_progression["crucible-of-storms"], epprogression=raid_progression["the-eternal-palace"]),
+                            value=_("**EP** : {epprogression} **CoS**: {cosprogression} **BoD** : {bodprogression} **Uldir **: {progression}").format(progression=raid_progression['uldir']['summary'], bodprogression=raid_progression["battle-of-dazaralor"]["summary"], cosprogression=raid_progression["crucible-of-storms"]["summary"], epprogression=raid_progression["the-eternal-palace"]["summary"]),
                             inline=False)
             embed.add_field(name=_("iLVL"),
                             value=f"{raiderio['gear']['item_level_equipped']}/{raiderio['gear']['item_level_total']}",
