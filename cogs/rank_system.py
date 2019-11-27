@@ -2,6 +2,7 @@ import asyncio
 import logging
 
 from discord.ext import commands
+from discord.ext.commands import Cog
 from lbwebsite.models import GuildSetting, Character, GuildRank, RealmConnected
 from social_django.models import UserSocialAuth
 
@@ -9,7 +10,7 @@ from utils import battlenet_util
 from utils.translate import _
 
 
-class RankSystem:
+class RankSystem(Cog):
 
     def __init__(self, bot):
         self.timer = 1800

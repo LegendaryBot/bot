@@ -8,6 +8,8 @@ import discord
 import youtube_dl as youtube_dl
 from async_timeout import timeout
 from discord.ext import commands
+from discord.ext.commands import Cog
+
 from utils.translate import _
 
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -138,7 +140,7 @@ class MusicPlayer:
         """Disconnect and cleanup the player."""
         return self.bot.loop.create_task(self._cog.cleanup(guild))
 
-class Music:
+class Music(Cog):
     def __init__(self, bot):
         self.bot = bot
         self.players = {}

@@ -1,5 +1,6 @@
 from discord import Embed, Colour
 from discord.ext import commands
+from discord.ext.commands import Cog
 from lbwebsite.models import GuildPrefix
 
 from utils import checks
@@ -13,7 +14,7 @@ class Prefix(commands.Converter):
         return argument
 
 
-class Meta:
+class Meta(Cog):
 
     def __init__(self, bot):
         self.bot = bot

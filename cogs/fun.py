@@ -1,8 +1,9 @@
 import requests
 from discord.ext import commands
+from discord.ext.commands import Cog
 
 
-class Fun:
+class Fun(Cog):
     """
     World of Warcraft related commands
     """

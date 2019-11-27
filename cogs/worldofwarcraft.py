@@ -5,6 +5,7 @@ from decimal import Decimal
 import requests
 from discord import Embed, Colour
 from discord.ext import commands
+from discord.ext.commands import Cog
 from lbwebsite.models import GuildServer, Character, RealmConnected
 from slugify import slugify
 from social_django.models import UserSocialAuth
@@ -27,7 +28,7 @@ def affixEmbed(embed, difficulty, affix):
     difficulty += mythicplus_affix[affix['keystone_affix']['id']]['difficulty']
     return embed, difficulty
 
-class WoW:
+class WoW(Cog):
     """
     World of Warcraft related commands
     """

@@ -1,9 +1,10 @@
 import asyncio
 
 from discord import Game
+from discord.ext.commands import Cog
 
 
-class Played:
+class Played(Cog):
 
     def __init__(self, bot):
         self.timer = 60

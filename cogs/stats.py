@@ -1,8 +1,9 @@
 import asyncio
 
+from discord.ext.commands import Cog
 from influxdb import InfluxDBClient
 
-class Stats:
+class Stats(Cog):
 
     def __init__(self, bot):
         self.bot = bot

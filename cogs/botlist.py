@@ -3,9 +3,10 @@ import logging
 import os
 
 import dbl
+from discord.ext.commands import Cog
 
 
-class DiscordBotsOrgAPI:
+class DiscordBotsOrgAPI(Cog):
     """Handles interactions with the discordbots.org API"""
 
     def __init__(self, bot):
