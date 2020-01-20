@@ -270,7 +270,7 @@ class WoW(Cog):
                 bnet_json = bnet_request.json()
                 cape = bnet_json["items"]["back"]
                 if cape["id"] == 169223:
-                    cape_rank = ((cape["itemLevel"] - 470) / 2) + 1
+                    cape_rank = int(((cape["itemLevel"] - 470) / 2) + 1)
                     embed.add_field(name=_("Legendary Cloak Rank"), value=cape_rank, inline=True)
             previous = 0
             seasons = []
