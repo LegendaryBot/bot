@@ -236,7 +236,7 @@ class WoW(Cog):
                 icon_url=get_class_icon(raiderio['class']), url=wow_link)
             raid_progression = raiderio['raid_progression']
             embed.add_field(name=_("Progression"),
-                            value=_("**EP** : {epprogression} **CoS**: {cosprogression} **BoD** : {bodprogression} **Uldir **: {progression}").format(progression=raid_progression['uldir']['summary'], bodprogression=raid_progression["battle-of-dazaralor"]["summary"], cosprogression=raid_progression["crucible-of-storms"]["summary"], epprogression=raid_progression["the-eternal-palace"]["summary"]),
+                            value=_("**NWC** : {nwcprogression} **EP** : {epprogression} **CoS**: {cosprogression} **BoD** : {bodprogression} **Uldir **: {progression}").format(progression=raid_progression['uldir']['summary'], bodprogression=raid_progression["battle-of-dazaralor"]["summary"], cosprogression=raid_progression["crucible-of-storms"]["summary"], epprogression=raid_progression["the-eternal-palace"]["summary"], nwcprogression=raid_progression["nyalotha-the-waking-city"]["summary"]),
                             inline=False)
             embed.add_field(name=_("iLVL"),
                             value=f"{raiderio['gear']['item_level_equipped']}/{raiderio['gear']['item_level_total']}",
@@ -258,7 +258,7 @@ class WoW(Cog):
                 best_runs += f"{mythicplus_run['mythic_level']}** {hour}:{minutes}:{seconds}]({mythicplus_run['url']})\n"
             if best_runs:
                 embed.add_field(name=_("Best Mythic+ Runs"), value=best_runs, inline=True)
-            bnet_request = battlenet_util.execute_battlenet_request(f"https://{region}.api.blizzard.com/wow/character/{realm_name}/{character_name}", params={"fields": "achievements,stats"})
+            bnet_request = battlenet_util.execute_battlenet_request(f"https://{region}.api.blizzard.com/wow/character/{realm_name}/{character_name}", params={"fields": "achievements,stats,items"})
             if bnet_request.ok:
                 bnet_json = bnet_request.json()
                 mplus_totals = ""
@@ -295,6 +295,11 @@ class WoW(Cog):
                 stats += _("**Mastery**: {percent}% {rating}").format(percent=round(Decimal(bnet_json['stats']['mastery']), 2), rating=bnet_json['stats']['masteryRating']) + "\n"
                 stats += _("**Versatility**: D:{percent_damage} B:{percent_block} ({rating})").format(percent_damage=round(Decimal(bnet_json['stats']['versatilityDamageDoneBonus']),2), percent_block=round(Decimal(bnet_json['stats']['versatilityDamageTakenBonus']),2), rating=bnet_json['stats']['versatility']) + "\n"
                 embed.add_field(name=_("Stats"), value=stats, inline=False)
+
+                cape = bnet_json["items"]["back"]
+                if cape["id"] == 169223:
+                    cape_rank = ((cape["itemLevel"] - 470) / 2) + 1
+                embed.add_field(name=_("Legendary Cloak Rank"), value=cape, inline=True)
             embed.add_field(name="WoWProgress",
                             value=_("[Click Here]({url})").format(url=f"https://www.wowprogress.com/character/{region}/{realm_name}/{character_name}"),
                             inline=True)

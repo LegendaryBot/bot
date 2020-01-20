@@ -73,6 +73,7 @@ class LegendaryBotDiscord(commands.AutoShardedBot):
 
     async def on_command(self, ctx):
         self.get_cog("Stats").command_count += 1
+
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.NoPrivateMessage):
             await ctx.author.send(_('This command cannot be used in private messages.'))
