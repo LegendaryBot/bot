@@ -299,7 +299,7 @@ class WoW(Cog):
                 cape = bnet_json["items"]["back"]
                 if cape["id"] == 169223:
                     cape_rank = ((cape["itemLevel"] - 470) / 2) + 1
-                embed.add_field(name=_("Legendary Cloak Rank"), value=cape, inline=True)
+                    embed.add_field(name=_("Legendary Cloak Rank"), value=cape_rank, inline=True)
             embed.add_field(name="WoWProgress",
                             value=_("[Click Here]({url})").format(url=f"https://www.wowprogress.com/character/{region}/{realm_name}/{character_name}"),
                             inline=True)
