@@ -299,7 +299,7 @@ class WoW(Cog):
                 "score": get_season_rank(region, realm_name, character_name, "season-bfa-4")
             })
             rank, rank_name = get_best_season(seasons)
-            embed.add_field(name=_("Mythic+ Score"), value=f"Current: {raiderio['mythic_plus_scores']['all']} | Best: {rank} ({rank_name})", inline=False)
+            embed.add_field(name=_("Mythic+ Score"), value=f"**Current**: {raiderio['mythic_plus_scores']['all']} | **Best**: {rank} (**{rank_name}**)", inline=False)
             best_runs = ""
             for mythicplus_run in raiderio['mythic_plus_best_runs']:
                 best_runs += f"[{mythicplus_run['dungeon']} - **"
