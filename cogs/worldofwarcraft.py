@@ -28,6 +28,30 @@ def affixEmbed(embed, difficulty, affix):
     difficulty += mythicplus_affix[affix['keystone_affix']['id']]['difficulty']
     return embed, difficulty
 
+def get_season_rank(region, realm_name, character_name, season_name):
+    payload = {
+        "region": region,
+        "realm": realm_name,
+        "name": character_name,
+        "fields": f"mythic_plus_scores_by_season:{season_name}"
+    }
+    r = requests.get(f"https://raider.io/api/v1/characters/profile", params=payload)
+    rank = 0
+    if r.ok:
+        ranking = r.json()
+        if ranking["mythic_plus_scores_by_season"]:
+            rank = ranking["mythic_plus_scores_by_season"][0]["scores"]["all"]
+    return rank
+
+def get_best_season(seasons):
+    max = 0
+    max_name = ""
+    for season in seasons:
+        if season["score"] >= max:
+            max = season["score"]
+            max_name = season["name"]
+    return max, max_name
+
 class WoW(Cog):
     """
     World of Warcraft related commands
@@ -211,6 +235,7 @@ class WoW(Cog):
                 "fields": "gear,raid_progression,mythic_plus_scores,previous_mythic_plus_scores,mythic_plus_best_runs"
             }
             r = requests.get(f"https://raider.io/api/v1/characters/profile", params=payload)
+            bnet_request = battlenet_util.execute_battlenet_request(f"https://{region}.api.blizzard.com/wow/character/{realm_name}/{character_name}", params={"fields": "achievements,stats,items"})
             i = 0
             if r.ok:
                 not_ok = False
@@ -236,15 +261,45 @@ class WoW(Cog):
                 icon_url=get_class_icon(raiderio['class']), url=wow_link)
             raid_progression = raiderio['raid_progression']
             embed.add_field(name=_("Progression"),
-                            value=_("**NWC** : {nwcprogression} **EP** : {epprogression} **CoS**: {cosprogression} **BoD** : {bodprogression} **Uldir **: {progression}").format(progression=raid_progression['uldir']['summary'], bodprogression=raid_progression["battle-of-dazaralor"]["summary"], cosprogression=raid_progression["crucible-of-storms"]["summary"], epprogression=raid_progression["the-eternal-palace"]["summary"], nwcprogression=raid_progression["nyalotha-the-waking-city"]["summary"]),
+                            value=_("**Ny'alotha** : {nwcprogression} **EP** : {epprogression} **CoS**: {cosprogression} **BoD** : {bodprogression} ").format(bodprogression=raid_progression["battle-of-dazaralor"]["summary"], cosprogression=raid_progression["crucible-of-storms"]["summary"], epprogression=raid_progression["the-eternal-palace"]["summary"], nwcprogression=raid_progression["nyalotha-the-waking-city"]["summary"]),
                             inline=False)
             embed.add_field(name=_("iLVL"),
                             value=f"{raiderio['gear']['item_level_equipped']}/{raiderio['gear']['item_level_total']}",
                             inline=True)
-            embed.add_field(name=_("Current Mythic+ Score"), value=raiderio['mythic_plus_scores']['all'], inline=True)
-            if "previous_mythic_plus_scores" in raiderio:
-                embed.add_field(name=_("Last Mythic+ Season Score"), value=raiderio['previous_mythic_plus_scores']['all'],
-                            inline=True)
+            if bnet_request.ok:
+                bnet_json = bnet_request.json()
+                cape = bnet_json["items"]["back"]
+                if cape["id"] == 169223:
+                    cape_rank = ((cape["itemLevel"] - 470) / 2) + 1
+                    embed.add_field(name=_("Legendary Cloak Rank"), value=cape_rank, inline=True)
+            previous = 0
+            seasons = []
+            seasons.append({
+                "name": "S1",
+                "score": get_season_rank(region, realm_name, character_name, "season-bfa-1")
+            })
+            seasons.append({
+                "name": "S2",
+                "score": get_season_rank(region, realm_name, character_name, "season-bfa-2")
+            })
+            seasons.append({
+                "name": "S2-Post",
+                "score": get_season_rank(region, realm_name, character_name, "season-bfa-2-post")
+            })
+            seasons.append({
+                "name": "S3",
+                "score": get_season_rank(region, realm_name, character_name, "season-bfa-3")
+            })
+            seasons.append({
+                "name": "S3-Post",
+                "score": get_season_rank(region, realm_name, character_name, "season-bfa-3-post")
+            })
+            seasons.append({
+                "name": "S4",
+                "score": get_season_rank(region, realm_name, character_name, "season-bfa-4")
+            })
+            rank, rank_name = get_best_season(seasons)
+            embed.add_field(name=_("Mythic+ Score"), value=f"Current: {raiderio['mythic_plus_scores']['all']} | Best: {rank} ({rank_name})", inline=False)
             best_runs = ""
             for mythicplus_run in raiderio['mythic_plus_best_runs']:
                 best_runs += f"[{mythicplus_run['dungeon']} - **"
@@ -258,7 +313,6 @@ class WoW(Cog):
                 best_runs += f"{mythicplus_run['mythic_level']}** {hour}:{minutes}:{seconds}]({mythicplus_run['url']})\n"
             if best_runs:
                 embed.add_field(name=_("Best Mythic+ Runs"), value=best_runs, inline=True)
-            bnet_request = battlenet_util.execute_battlenet_request(f"https://{region}.api.blizzard.com/wow/character/{realm_name}/{character_name}", params={"fields": "achievements,stats,items"})
             if bnet_request.ok:
                 bnet_json = bnet_request.json()
                 mplus_totals = ""
@@ -296,10 +350,7 @@ class WoW(Cog):
                 stats += _("**Versatility**: D:{percent_damage} B:{percent_block} ({rating})").format(percent_damage=round(Decimal(bnet_json['stats']['versatilityDamageDoneBonus']),2), percent_block=round(Decimal(bnet_json['stats']['versatilityDamageTakenBonus']),2), rating=bnet_json['stats']['versatility']) + "\n"
                 embed.add_field(name=_("Stats"), value=stats, inline=False)
 
-                cape = bnet_json["items"]["back"]
-                if cape["id"] == 169223:
-                    cape_rank = ((cape["itemLevel"] - 470) / 2) + 1
-                    embed.add_field(name=_("Legendary Cloak Rank"), value=cape_rank, inline=True)
+
             embed.add_field(name="WoWProgress",
                             value=_("[Click Here]({url})").format(url=f"https://www.wowprogress.com/character/{region}/{realm_name}/{character_name}"),
                             inline=True)
