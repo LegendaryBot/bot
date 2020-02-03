@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2020-01-22 00:20\n"
+"PO-Revision-Date: 2020-02-03 08:52\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
@@ -50,11 +50,11 @@ msgstr ""
 
 #: cogs/meta.py:32
 msgid "No prefixes set."
-msgstr ""
+msgstr "プリフィックスが設定されておりません。"
 
 #: cogs/meta.py:52
 msgid "Prefix {prefix} added to the server."
-msgstr ""
+msgstr "プリフィックス {prefix} がサーバーに入荷されました。"
 
 #: cogs/meta.py:54
 msgid "Prefix {prefix} not set. Already existing."
@@ -184,15 +184,15 @@ msgstr ""
 
 #: cogs/worldofwarcraft.py:53
 msgid "**Normal**"
-msgstr ""
+msgstr "**ノーマル**"
 
 #: cogs/worldofwarcraft.py:56
 msgid "**Heroic**"
-msgstr ""
+msgstr "**ヒロイック**"
 
 #: cogs/worldofwarcraft.py:59
 msgid "**Mythic**"
-msgstr ""
+msgstr "**ミシック**"
 
 #: cogs/worldofwarcraft.py:75
 msgid "You are required to type the region. Supported regions are: NA/EU/CN/TW/KR"
