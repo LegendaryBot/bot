@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2020-03-07 21:12\n"
+"PO-Revision-Date: 2020-03-07 21:23\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -395,7 +395,7 @@ msgstr "Gegner schenken der von Tanks erzeugten Bedrohung deutlich weniger Aufme
 
 #: cogs/worldofwarcraft.py:387
 msgid "While in combat, enemies periodically cause gouts of flame to erupt beneath the feet of distant players."
-msgstr ""
+msgstr "Im Kampf lassen Gegner regelmäßig Flammentropfen unter den Füßen weit entfernter Spielercharaktere hervorbrechen."
 
 #: cogs/worldofwarcraft.py:391
 msgid "All enemies' melee attacks apply a stacking blight that inflicts damage over time and reduces healing received."
