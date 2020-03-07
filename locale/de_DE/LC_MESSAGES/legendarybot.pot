@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2020-03-07 23:03\n"
+"PO-Revision-Date: 2020-03-07 23:07\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +50,7 @@ msgstr "LegendaryBot Prefix konfiguriert."
 
 #: cogs/meta.py:32
 msgid "No prefixes set."
-msgstr "Kein Prefix eingestellt"
+msgstr "Kein Prefixe gesetzt."
 
 #: cogs/meta.py:52
 msgid "Prefix {prefix} added to the server."
@@ -408,7 +408,7 @@ msgstr "Im gesamten Dungeon sind zusätzliche normale Gegner vorhanden."
 #: cogs/worldofwarcraft.py:399
 #, python-format
 msgid "Non-boss enemies enrage at 30% health remaining, dealing 100% increased damage until defeated."
-msgstr "Normale Gegner bekommen bei 30%% Gesundheit einen Wutanfall und verursachen 100%% mehr Schaden, bis sie besiegt werden."
+msgstr "Normale Gegner bekommen bei 30% Gesundheit einen Wutanfall und verursachen 100% mehr Schaden, bis sie besiegt werden."
 
 #: cogs/worldofwarcraft.py:403
 msgid "When any non-boss enemy dies, its death cry empowers nearby allies, increasing their maximum health and damage by 20%."
