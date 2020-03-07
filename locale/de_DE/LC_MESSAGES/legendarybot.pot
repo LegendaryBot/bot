@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2020-03-07 22:23\n"
+"PO-Revision-Date: 2020-03-07 22:41\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "Benutzerdefinierte Befehle für den {guild_name} Server."
 
 #: cogs/custom_commands.py:42
 msgid "No custom commands!"
-msgstr "Keine freien Befehle!"
+msgstr "Keine benutzerdefinierten Befehle!"
 
 #: cogs/custom_commands.py:63
 msgid "Command {command_name} updated!"
@@ -78,7 +78,7 @@ msgstr "Erstellt mit Discord.py. Schreibe @LegendayBot help um alle möglichen B
 
 #: cogs/meta.py:89
 msgid "To invite LegendaryBot to your server. Click this link: <{link}>"
-msgstr "Klicke {link} um den LegendayBot zum Server einzuladen"
+msgstr "Klicke diesen Link: <{link}> um den LegendayBot zum Server einzuladen"
 
 #: cogs/music.py:66
 msgid "```ini\n"
@@ -90,13 +90,13 @@ msgstr "```ini\n"
 
 #: cogs/music.py:122
 msgid "There was an error processing your song."
-msgstr "Beim Verarbeiten Ihres Songs ist ein Fehler aufgetreten."
+msgstr "Beim Verarbeiten deines Liedes ist ein Fehler aufgetreten."
 
 #: cogs/music.py:131
 msgid "```ini\n"
 "[Now playing {song_title}. Requested by {requester}]```"
 msgstr "```ini\n"
-"[Es wird {song_title} gespielt. Beantragt durch {requester}]```"
+"[Jetzt läuft {song_title}. Angefordert durch {requester}]```"
 
 #: cogs/music.py:180
 msgid "The minimum volume is 0 and the maximum is 100."
@@ -104,7 +104,7 @@ msgstr "Die Minimum Lautstärke ist 0 und das Maximum ist 100."
 
 #: cogs/music.py:182
 msgid "Not connected to a voice channel."
-msgstr "Nicht mit einem Voice Channel verbunden."
+msgstr "Du bist nicht mit einem Sprachkanal verbunden."
 
 #: cogs/music.py:190
 msgid "Changed volume to {volume}%"
@@ -112,7 +112,7 @@ msgstr "Lautstärke geändert auf: {volume}%"
 
 #: cogs/music.py:203 cogs/music.py:216 cogs/music.py:253 cogs/music.py:263
 msgid "I am not currently playing anything!"
-msgstr "Momentan spiele ich gerade nicht ab!"
+msgstr "Momentan spiele ich gerade nichts ab!"
 
 #: cogs/music.py:208
 msgid "**`{user}`**: Paused the song!"
@@ -416,31 +416,31 @@ msgstr "Wenn normale Gegner sterben, erfüllt ihr Todesschrei Verbündete in der
 
 #: cogs/worldofwarcraft.py:407
 msgid "When slain, non-boss enemies leave behind a lingering pool of ichor that heals their allies and damages players."
-msgstr ""
+msgstr "Wenn normale Gegner sterben, hinterlassen sie eine Blutpfütze, die ihre Verbündeten heilt und Spielercharakteren Schaden zufügt."
 
 #: cogs/worldofwarcraft.py:411
 #, python-format
 msgid "Boss enemies have 40% more health and inflict up to 15% increased damage."
-msgstr ""
+msgstr "Bossgegner haben 40%% mehr Gesundheit und verursachen bis zu 15%% mehr Schaden."
 
 #: cogs/worldofwarcraft.py:415
 #, python-format
 msgid "Non-boss enemies have 20% more health and inflict up to 30% increased damage."
-msgstr ""
+msgstr "Normale Gegner haben 20%% mehr Gesundheit und verursachen bis zu 30%% mehr Schaden."
 
 #: cogs/worldofwarcraft.py:419
 #, python-format
 msgid "When slain, non-boss enemies explode, causing all players to suffer 10% of their max health in damage over 4 sec. This effect stacks."
-msgstr ""
+msgstr "Wenn normale Gegner getötet werden, explodieren sie und fügen allen Spielercharakteren im Verlauf von 4 Sek. 14% ihrer maximalen Gesundheit als Schaden zu. Dieser Effekt ist stapelbar."
 
 #: cogs/worldofwarcraft.py:423
 #, python-format
 msgid "When injured below 90% health, players will suffer increasing damage over time until healed above 90% health."
-msgstr ""
+msgstr "Wenn die Gesundheit von Spielercharakteren unter 90%% sinkt, erleiden sie ansteigenden regelmäßigen Schaden, bis sie über 90%% ihrer Gesundheit geheilt wurden."
 
 #: cogs/worldofwarcraft.py:427
 msgid "While in combat, enemies periodically summon Explosive Orbs that will detonate if not destroyed."
-msgstr ""
+msgstr "Gegner, die sich im Kampf befinden, beschwören regelmäßig explosive Kugeln, die explodieren, wenn sie nicht zerstört werden."
 
 #: cogs/worldofwarcraft.py:431
 msgid "Periodically, all players emit a shockwave, inflicting damage and interrupting nearby allies."
@@ -448,7 +448,7 @@ msgstr "Alle Spielercharaktere senden regelmäßig eine Schockwelle aus, die Sch
 
 #: cogs/worldofwarcraft.py:435
 msgid "Some non-boss enemies have been infested with a Spawn of G'huun."
-msgstr ""
+msgstr "Einige Normale Gegner sind mit einem Sproß von G`huun befallen."
 
 #: legendarybot/bot.py:78
 msgid "This command cannot be used in private messages."
