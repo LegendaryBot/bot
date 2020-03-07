@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2020-01-20 01:51\n"
+"PO-Revision-Date: 2020-03-07 17:32\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -299,7 +299,7 @@ msgstr ""
 
 #: cogs/worldofwarcraft.py:242
 msgid "Last Mythic+ Season Score"
-msgstr ""
+msgstr "Letzte Mythic+ Saison Punkte"
 
 #: cogs/worldofwarcraft.py:256
 msgid "Best Mythic+ Runs"
