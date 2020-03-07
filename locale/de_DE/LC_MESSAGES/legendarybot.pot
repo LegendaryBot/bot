@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2020-03-07 18:08\n"
+"PO-Revision-Date: 2020-03-07 21:02\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -128,19 +128,19 @@ msgstr "Ich bin derzeit nicht mit einem Voice Channel verbunden!"
 
 #: cogs/music.py:233
 msgid "There are currently no more queued songs."
-msgstr ""
+msgstr "Derzeit sind keine Lieder mehr in der Warteschlange."
 
 #: cogs/music.py:239
 msgid "Upcoming - Next {songs}"
-msgstr ""
+msgstr "Bevorstehend - Nächste {songs}"
 
 #: cogs/music.py:255
 msgid "**Now Playing:** `{title}` requested by `{requester}`"
-msgstr ""
+msgstr "**Jetzt läuft:** `{title}` angefordert von `{requester}`"
 
 #: cogs/music.py:271
 msgid "**`{user}`**: Skipped the song!"
-msgstr ""
+msgstr "**`{user}`**: hat das Lied übersprungen!"
 
 #: cogs/music.py:279
 msgid "You are not connected to a voice channel."
@@ -254,7 +254,7 @@ msgstr "Bevölkerung"
 
 #: cogs/worldofwarcraft.py:131
 msgid "Currently a Queue?"
-msgstr ""
+msgstr "Derzeit eine Warteschlange?"
 
 #: cogs/worldofwarcraft.py:131
 msgid "Yes"
@@ -314,19 +314,19 @@ msgstr "Mythic+ abgeschlossen"
 
 #: cogs/worldofwarcraft.py:284
 msgid "**STR**: {strength}"
-msgstr ""
+msgstr "**STR**: {strength}"
 
 #: cogs/worldofwarcraft.py:286
 msgid "**AGI**: {agility}"
-msgstr ""
+msgstr "**AGI**: {agility}"
 
 #: cogs/worldofwarcraft.py:288
 msgid "**INT**: {intel}"
-msgstr ""
+msgstr "**INT**: {intel}"
 
 #: cogs/worldofwarcraft.py:289
 msgid "**Crit**: {percent}% {rating}"
-msgstr ""
+msgstr "**Crit**: {percent}% {rating}"
 
 #: cogs/worldofwarcraft.py:290
 msgid "**Haste**: {percent}% {rating}"
