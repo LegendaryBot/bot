@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2020-03-07 17:37\n"
+"PO-Revision-Date: 2020-03-07 18:00\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -156,7 +156,7 @@ msgstr ""
 
 #: cogs/rank_system.py:173 cogs/rank_system.py:186
 msgid "The Rank System is not enabled. Please ask bot author to enable it."
-msgstr ""
+msgstr "Das Rangsystem ist nicht aktiviert. Bitte den Bot-Autor darum, es zu aktivieren."
 
 #: cogs/rank_system.py:184
 msgid "Your rank is being synced. It may take some minutes to apply."
@@ -167,87 +167,90 @@ msgid "The Sync system allows you to have your Discord Rank Synced to your ingam
 "For Server owners: Go on https://legendarybot.info, go in your server settings and configure the WoW Servers and the WoW Ranks section. \n"
 "This feature is still in BETA, which means it needs to be enabled by the bot owner (Greatman). Contact him here: https://discord.gg/Cr7G28H\n"
 "For Users: Go on https://legendarybot.info, go in the Myself section and sync your Battle.Net account with the website. Then, select which character is the main character in the discord server you want."
-msgstr ""
+msgstr "Das Sync-System erlaubt dir, deinen Discord Rang mit deinem ingame WoW Gildenrang synchronisieren zu lassen.\n"
+"Für Serverbesitzer: Gehe auf https://legendarybot.info, gehe in deine Servereinstellungen und konfiguriere den WoW Server und den WoW Rang Bereich. \n"
+"Diese Funktion ist noch in BETA, was bedeutet, dass sie vom Bot-Eigentümer (Greatman) aktiviert werden muss. Kontaktiere ihn hier: https://discord.gg/Cr7G28H\n"
+"Für Benutzer: Gehe auf https://legendarybot.info, gehe in die Myself Sektion und synchronisiere dein Battle.Net Konto mit der Website. Wähle dann deinen Charakter aus, der dein Hauptcharakter für den Discord Server, deiner Wahl, darstellen soll."
 
 #: cogs/worldofwarcraft.py:40
 msgid "World: **{world}**"
-msgstr ""
+msgstr "Welt: **{world}**"
 
 #: cogs/worldofwarcraft.py:41
 msgid "Region: **{region}**"
-msgstr ""
+msgstr "Region: **{region}**"
 
 #: cogs/worldofwarcraft.py:42
 msgid "Realm: **{realm}**"
-msgstr ""
+msgstr "Server: **{realm}**"
 
 #: cogs/worldofwarcraft.py:44
 msgid "**Not started**"
-msgstr ""
+msgstr "**Noch nicht angefangen**"
 
 #: cogs/worldofwarcraft.py:53
 msgid "**Normal**"
-msgstr ""
+msgstr "**Normal**"
 
 #: cogs/worldofwarcraft.py:56
 msgid "**Heroic**"
-msgstr ""
+msgstr "**Heroisch**"
 
 #: cogs/worldofwarcraft.py:59
 msgid "**Mythic**"
-msgstr ""
+msgstr "**Mythisch**"
 
 #: cogs/worldofwarcraft.py:75
 msgid "You are required to type the region. Supported regions are: NA/EU/CN/TW/KR"
-msgstr ""
+msgstr "Sie müssen die Region eingeben. Unterstützte Regionen sind: NA/EU/CN/TW/KR"
 
 #: cogs/worldofwarcraft.py:82
 msgid "Price for 1 WoW Token in the {region} region"
-msgstr ""
+msgstr "Preis für 1 WoW Marke in der Region {region}"
 
 #: cogs/worldofwarcraft.py:84
 msgid "Information taken from https://wowtoken.info"
-msgstr ""
+msgstr "Informationen von https://wowtoken.info erhalten"
 
 #: cogs/worldofwarcraft.py:87
 msgid "Current Price"
-msgstr ""
+msgstr "Aktueller Preis"
 
 #: cogs/worldofwarcraft.py:88
 msgid "Minimum 24H"
-msgstr ""
+msgstr "Minimum 24H"
 
 #: cogs/worldofwarcraft.py:89
 msgid "Maximum 24H"
-msgstr ""
+msgstr "Maximal 24H"
 
 #: cogs/worldofwarcraft.py:90
 msgid "Percentage 24H Range"
-msgstr ""
+msgstr "Prozentsatz 24H Bereich"
 
 #: cogs/worldofwarcraft.py:93
 msgid "Region not found. Supported regions are: NA/EU/CN/TW/KR"
-msgstr ""
+msgstr "Region nicht gefunden. Unterstützte Regionen sind: NA/EU/CN/TW/KR"
 
 #: cogs/worldofwarcraft.py:109
 msgid "You are required to type a realm."
-msgstr ""
+msgstr "Du musst einen Realm eingeben."
 
 #: cogs/worldofwarcraft.py:129
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: cogs/worldofwarcraft.py:129
 msgid "Online"
-msgstr ""
+msgstr "Online"
 
 #: cogs/worldofwarcraft.py:129
 msgid "Offline"
-msgstr ""
+msgstr "Offline"
 
 #: cogs/worldofwarcraft.py:130
 msgid "Population"
-msgstr ""
+msgstr "Bevölkerung"
 
 #: cogs/worldofwarcraft.py:131
 msgid "Currently a Queue?"
@@ -255,15 +258,15 @@ msgstr ""
 
 #: cogs/worldofwarcraft.py:131
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: cogs/worldofwarcraft.py:131
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: cogs/worldofwarcraft.py:134
 msgid "Realm not found. Did you make a mistake?"
-msgstr ""
+msgstr "Realm nicht gefunden. Hast du einen Fehler gemacht?"
 
 #: cogs/worldofwarcraft.py:184 cogs/worldofwarcraft.py:186
 msgid "You must enter a character name."
@@ -271,31 +274,31 @@ msgstr "Du musst einen Charakternamen eingeben."
 
 #: cogs/worldofwarcraft.py:193
 msgid "You must put the realm and the region."
-msgstr ""
+msgstr "Du musst den Realm und die Region auswählen."
 
 #: cogs/worldofwarcraft.py:197
 msgid "The only valid regions are US or EU."
-msgstr ""
+msgstr "Die einzigen gültigen Regionen sind die USA oder die EU."
 
 #: cogs/worldofwarcraft.py:221
 msgid "Character not found! Does it exist on Raider.IO?"
-msgstr ""
+msgstr "Charakter nicht gefunden! Gibt es ihn schon auf Raider.IO?"
 
 #: cogs/worldofwarcraft.py:234
 msgid "Progression"
-msgstr ""
+msgstr "Fortschritt"
 
 #: cogs/worldofwarcraft.py:235
 msgid "**Uldir **: {progression}"
-msgstr ""
+msgstr "**Uldir **: {progression}"
 
 #: cogs/worldofwarcraft.py:237
 msgid "iLVL"
-msgstr ""
+msgstr "iLVL"
 
 #: cogs/worldofwarcraft.py:240
 msgid "Current Mythic+ Score"
-msgstr ""
+msgstr "Aktuelle Mythic+ Punktzahl"
 
 #: cogs/worldofwarcraft.py:242
 msgid "Last Mythic+ Season Score"
@@ -303,11 +306,11 @@ msgstr "Letzte Mythic+ Saison Punkte"
 
 #: cogs/worldofwarcraft.py:256
 msgid "Best Mythic+ Runs"
-msgstr ""
+msgstr "Beste Mythisch+ Runs"
 
 #: cogs/worldofwarcraft.py:278
 msgid "Mythic+ Completed"
-msgstr ""
+msgstr "Mythic+ abgeschlossen"
 
 #: cogs/worldofwarcraft.py:284
 msgid "**STR**: {strength}"
