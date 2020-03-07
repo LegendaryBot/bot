@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2020-03-07 18:00\n"
+"PO-Revision-Date: 2020-03-07 18:08\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -144,15 +144,15 @@ msgstr ""
 
 #: cogs/music.py:279
 msgid "You are not connected to a voice channel."
-msgstr ""
+msgstr "Du bist nicht mit einem Sprachkanal verbunden."
 
 #: cogs/music.py:280
 msgid "Author not connected to a voice channel."
-msgstr ""
+msgstr "Autor nicht mit einem Sprachkanal verbunden."
 
 #: cogs/rank_system.py:171
 msgid "Guild Rank Sync started. It may take some minutes to apply. Check the server Audit log for any changes."
-msgstr ""
+msgstr "Gilden Rang synchronisation begonnen. Es kann einige Minuten dauern bis es Korrekt angezeigt wird. Überprüfe die Server Audit Logs für alle Veränderungen."
 
 #: cogs/rank_system.py:173 cogs/rank_system.py:186
 msgid "The Rank System is not enabled. Please ask bot author to enable it."
@@ -160,7 +160,7 @@ msgstr "Das Rangsystem ist nicht aktiviert. Bitte den Bot-Autor darum, es zu akt
 
 #: cogs/rank_system.py:184
 msgid "Your rank is being synced. It may take some minutes to apply."
-msgstr ""
+msgstr "Dein Rang ist synchronisiert. Hab etwas Geduld, es kann einige Minuten dauern bis es Korrekt angezeigt wird."
 
 #: cogs/rank_system.py:193
 msgid "The Sync system allows you to have your Discord Rank Synced to your ingame WoW guild rank.\n"
