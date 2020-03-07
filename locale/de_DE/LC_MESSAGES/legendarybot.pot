@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: legendarybot\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-10-21 02:31-0400\n"
-"PO-Revision-Date: 2020-03-07 22:41\n"
+"PO-Revision-Date: 2020-03-07 23:03\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "Keine benutzerdefinierten Befehle!"
 
 #: cogs/custom_commands.py:63
 msgid "Command {command_name} updated!"
-msgstr "Befehl {command_name} geändert!"
+msgstr "Befehl {command_name} aktualisiert!"
 
 #: cogs/custom_commands.py:67
 msgid "Command {command_name} created!"
@@ -38,7 +38,7 @@ msgstr "Befehl {command_name} erstellt!"
 
 #: cogs/custom_commands.py:82
 msgid "Command {command_name} removed!"
-msgstr "Befehl {command_name} gelöscht!"
+msgstr "Befehl {command_name} entfernt!"
 
 #: cogs/custom_commands.py:84
 msgid "Command {command_name} not found!"
@@ -46,11 +46,11 @@ msgstr "Befehl {command_name} nicht gefunden!"
 
 #: cogs/meta.py:28
 msgid "LegendaryBot prefixes configured."
-msgstr "LegendayBot Prefix konfiguriert."
+msgstr "LegendaryBot Prefix konfiguriert."
 
 #: cogs/meta.py:32
 msgid "No prefixes set."
-msgstr "Kein Prefix gesetzt."
+msgstr "Kein Prefix eingestellt"
 
 #: cogs/meta.py:52
 msgid "Prefix {prefix} added to the server."
@@ -58,11 +58,11 @@ msgstr "Prefix {prefix} für den Server gesetzt."
 
 #: cogs/meta.py:54
 msgid "Prefix {prefix} not set. Already existing."
-msgstr "Prefix {prefix} nicht erstellt. Er wird schon genutzt."
+msgstr "Prefix {prefix} wurde nicht erstellt. Existiert bereits."
 
 #: cogs/meta.py:70
 msgid "Prefix {prefix} removed from the server"
-msgstr "Prefix {prefix} vom Server gelöscht"
+msgstr "Prefix {prefix} wurde vom Server gelöscht"
 
 #: cogs/meta.py:72
 msgid "Prefix {prefix} does not exist."
@@ -120,7 +120,7 @@ msgstr "**`{user}`**. pausiert das Lied!"
 
 #: cogs/music.py:221
 msgid "**`{user}`**: Resumed the song!"
-msgstr "**`{user}`**. Starte den Song erneut!"
+msgstr "**`{user}`**: hat das Lied fortgesetzt!"
 
 #: cogs/music.py:229 cogs/music.py:249
 msgid "I am not currently connected to voice!"
