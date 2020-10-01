@@ -1,0 +1,462 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: legendarybot\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-10-21 02:31-0400\n"
+"PO-Revision-Date: 2020-10-01 23:44\n"
+"Last-Translator: \n"
+"Language-Team: Italian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: legendarybot\n"
+"X-Crowdin-Project-ID: 298332\n"
+"X-Crowdin-Language: it\n"
+"X-Crowdin-File: /master/locale/legendarybot.pot\n"
+"X-Crowdin-File-ID: 6\n"
+"Language: it_IT\n"
+
+#: cogs/custom_commands.py:13
+msgid "The only valid custom command type are: text"
+msgstr "I soli tipi di comandi personalizzati validi sono: testo"
+
+#: cogs/custom_commands.py:37
+msgid "Custom commands for the {guild_name} server."
+msgstr "Comandi personalizzati per il server {guild_name}."
+
+#: cogs/custom_commands.py:42
+msgid "No custom commands!"
+msgstr "Nessun comando personalizzato!"
+
+#: cogs/custom_commands.py:63
+msgid "Command {command_name} updated!"
+msgstr "Comando {command_name} aggiornato!"
+
+#: cogs/custom_commands.py:67
+msgid "Command {command_name} created!"
+msgstr "Comando {command_name} creato!"
+
+#: cogs/custom_commands.py:82
+msgid "Command {command_name} removed!"
+msgstr "Comando {command_name} rimosso!"
+
+#: cogs/custom_commands.py:84
+msgid "Command {command_name} not found!"
+msgstr "Comando {command_name} non trovato!"
+
+#: cogs/meta.py:28
+msgid "LegendaryBot prefixes configured."
+msgstr "Prefissi LegendaryBot configurato."
+
+#: cogs/meta.py:32
+msgid "No prefixes set."
+msgstr "Nessun prefisso impostato."
+
+#: cogs/meta.py:52
+msgid "Prefix {prefix} added to the server."
+msgstr "Prefisso {prefix} aggiunto al server."
+
+#: cogs/meta.py:54
+msgid "Prefix {prefix} not set. Already existing."
+msgstr "Prefisso {prefix} non impostato. Già esistente."
+
+#: cogs/meta.py:70
+msgid "Prefix {prefix} removed from the server"
+msgstr "Prefisso {prefix} rimosso dal server"
+
+#: cogs/meta.py:72
+msgid "Prefix {prefix} does not exist."
+msgstr "Prefisso {prefix} non esiste."
+
+#: cogs/meta.py:79
+msgid "LegendaryBot"
+msgstr "LegendaryBot"
+
+#: cogs/meta.py:81
+msgid "Created using Discord.py. Type @LegendaryBot help to show all the commands."
+msgstr "Creato usando Discord.py. Digita @LegendaryBot aiuta a mostrare tutti i comandi."
+
+#: cogs/meta.py:89
+msgid "To invite LegendaryBot to your server. Click this link: <{link}>"
+msgstr "Per invitare LegendaryBot al tuo server. Clicca questo link: <{link}>"
+
+#: cogs/music.py:66
+msgid "```ini\n"
+"[Added {song_title} to the Queue.]\n"
+"```"
+msgstr "```ini\n"
+"[Aggiunta {song_title} alla Coda.]\n"
+"```"
+
+#: cogs/music.py:122
+msgid "There was an error processing your song."
+msgstr "C'è stato un errore elaborando la tua canzone."
+
+#: cogs/music.py:131
+msgid "```ini\n"
+"[Now playing {song_title}. Requested by {requester}]```"
+msgstr "```ini\n"
+"[Ora riproducendo {song_title}. Richiesta da {requester}]```"
+
+#: cogs/music.py:180
+msgid "The minimum volume is 0 and the maximum is 100."
+msgstr "Il volume minimo è 0 ed il massimo è 100."
+
+#: cogs/music.py:182
+msgid "Not connected to a voice channel."
+msgstr "Non connesso ad un canale vocale."
+
+#: cogs/music.py:190
+msgid "Changed volume to {volume}%"
+msgstr "Volume cambiato a {volume}%"
+
+#: cogs/music.py:203 cogs/music.py:216 cogs/music.py:253 cogs/music.py:263
+msgid "I am not currently playing anything!"
+msgstr "Non sto riproducendo niente correntemente!"
+
+#: cogs/music.py:208
+msgid "**`{user}`**: Paused the song!"
+msgstr "**`{user}`**: Canzone fermata!"
+
+#: cogs/music.py:221
+msgid "**`{user}`**: Resumed the song!"
+msgstr "**`{user}`**: Canzone ripresa!"
+
+#: cogs/music.py:229 cogs/music.py:249
+msgid "I am not currently connected to voice!"
+msgstr "Non sono connesso alla voce correntemente!"
+
+#: cogs/music.py:233
+msgid "There are currently no more queued songs."
+msgstr "Non ci sono canzoni accodate correntemente."
+
+#: cogs/music.py:239
+msgid "Upcoming - Next {songs}"
+msgstr "Imminente - Prossima {songs}"
+
+#: cogs/music.py:255
+msgid "**Now Playing:** `{title}` requested by `{requester}`"
+msgstr "**Riproducendo Ora:** `{title}` richiesta da `{requester}`"
+
+#: cogs/music.py:271
+msgid "**`{user}`**: Skipped the song!"
+msgstr "**`{user}`**: Canzone saltata!"
+
+#: cogs/music.py:279
+msgid "You are not connected to a voice channel."
+msgstr "Non sei connesso ad un canale vocale."
+
+#: cogs/music.py:280
+msgid "Author not connected to a voice channel."
+msgstr "Autore non connesso ad un canale vocale."
+
+#: cogs/rank_system.py:171
+msgid "Guild Rank Sync started. It may take some minutes to apply. Check the server Audit log for any changes."
+msgstr "Sincronizzazione Rango Gilda avviata. Potrebbe richiedere qualche minuto per applicare. Controlla il registro Audit del server per ogni modifica."
+
+#: cogs/rank_system.py:173 cogs/rank_system.py:186
+msgid "The Rank System is not enabled. Please ask bot author to enable it."
+msgstr "Il Sistema di Rango non è abilitato. Per favore chiedere all'autore di abilitarlo."
+
+#: cogs/rank_system.py:184
+msgid "Your rank is being synced. It may take some minutes to apply."
+msgstr "Il tuo rango è stato sincronizzato. Potrebbe richiedere qualche minuto per applicare."
+
+#: cogs/rank_system.py:193
+msgid "The Sync system allows you to have your Discord Rank Synced to your ingame WoW guild rank.\n"
+"For Server owners: Go on https://legendarybot.info, go in your server settings and configure the WoW Servers and the WoW Ranks section. \n"
+"This feature is still in BETA, which means it needs to be enabled by the bot owner (Greatman). Contact him here: https://discord.gg/Cr7G28H\n"
+"For Users: Go on https://legendarybot.info, go in the Myself section and sync your Battle.Net account with the website. Then, select which character is the main character in the discord server you want."
+msgstr "Il sistema di Sincronizzazione ti consente di avere il tuo Rango di Discord Sincronizzato al tuo rango di gilda di WoW in gioco.\n"
+"Per i proprietari del Server: Vai su https://legendarybot.info, vai nelle tue impostazioni del server e configura i Server WoW e la sezione Ranghi WoW. \n"
+"Questa funzione è ancora in BETA, il che significa che necessita di essere abilitata dal proprietario del bot (Greatman). Contattalo qui: https://discord.gg/Cr7G28H\n"
+"Per gli Utenti: Vai su https://legendarybot.info, vai nella sezione Myself e sincronizza il tuo profilo Battle.Net con il sito web. Poi, seleziona quale carattere è il protagonista che vuoi nel tuo server Discord."
+
+#: cogs/worldofwarcraft.py:40
+msgid "World: **{world}**"
+msgstr "Mondo: **{world}**"
+
+#: cogs/worldofwarcraft.py:41
+msgid "Region: **{region}**"
+msgstr "Regione: **{region}**"
+
+#: cogs/worldofwarcraft.py:42
+msgid "Realm: **{realm}**"
+msgstr "Reame: **{realm}**"
+
+#: cogs/worldofwarcraft.py:44
+msgid "**Not started**"
+msgstr "**Non avviato**"
+
+#: cogs/worldofwarcraft.py:53
+msgid "**Normal**"
+msgstr "**Normale**"
+
+#: cogs/worldofwarcraft.py:56
+msgid "**Heroic**"
+msgstr "**Eroico**"
+
+#: cogs/worldofwarcraft.py:59
+msgid "**Mythic**"
+msgstr "**Mitico**"
+
+#: cogs/worldofwarcraft.py:75
+msgid "You are required to type the region. Supported regions are: NA/EU/CN/TW/KR"
+msgstr "Ti è richiesto di digitare la regione. Regioni supportate sono: NA/EU/CN/TW/KR"
+
+#: cogs/worldofwarcraft.py:82
+msgid "Price for 1 WoW Token in the {region} region"
+msgstr "Prezzo per 1 Token WoW nella regione {region}"
+
+#: cogs/worldofwarcraft.py:84
+msgid "Information taken from https://wowtoken.info"
+msgstr "Informazioni prese da https://wowtoken.info"
+
+#: cogs/worldofwarcraft.py:87
+msgid "Current Price"
+msgstr "Prezzo Corrente"
+
+#: cogs/worldofwarcraft.py:88
+msgid "Minimum 24H"
+msgstr "Minimo 24H"
+
+#: cogs/worldofwarcraft.py:89
+msgid "Maximum 24H"
+msgstr "Massimo 24H"
+
+#: cogs/worldofwarcraft.py:90
+msgid "Percentage 24H Range"
+msgstr "Rango Percentuale 24H"
+
+#: cogs/worldofwarcraft.py:93
+msgid "Region not found. Supported regions are: NA/EU/CN/TW/KR"
+msgstr "Regione non trovata. Regioni supportate sono: NA/EU/CN/TW/KR"
+
+#: cogs/worldofwarcraft.py:109
+msgid "You are required to type a realm."
+msgstr "Ti è richiesto di digitare un reame."
+
+#: cogs/worldofwarcraft.py:129
+msgid "Status"
+msgstr "Stato"
+
+#: cogs/worldofwarcraft.py:129
+msgid "Online"
+msgstr "Online"
+
+#: cogs/worldofwarcraft.py:129
+msgid "Offline"
+msgstr "Offline"
+
+#: cogs/worldofwarcraft.py:130
+msgid "Population"
+msgstr "Popolazione"
+
+#: cogs/worldofwarcraft.py:131
+msgid "Currently a Queue?"
+msgstr "Correntemente una Coda?"
+
+#: cogs/worldofwarcraft.py:131
+msgid "Yes"
+msgstr "Sì"
+
+#: cogs/worldofwarcraft.py:131
+msgid "No"
+msgstr "No"
+
+#: cogs/worldofwarcraft.py:134
+msgid "Realm not found. Did you make a mistake?"
+msgstr "Reame non trovato. Hai fatto un errore?"
+
+#: cogs/worldofwarcraft.py:184 cogs/worldofwarcraft.py:186
+msgid "You must enter a character name."
+msgstr "Devi inserire un nome carattere."
+
+#: cogs/worldofwarcraft.py:193
+msgid "You must put the realm and the region."
+msgstr "Devi inserire il reame e la regione."
+
+#: cogs/worldofwarcraft.py:197
+msgid "The only valid regions are US or EU."
+msgstr "Le uniche regioni valide sono US o EU."
+
+#: cogs/worldofwarcraft.py:221
+msgid "Character not found! Does it exist on Raider.IO?"
+msgstr "Carattere non trovato! Esiste su Raider.IO?"
+
+#: cogs/worldofwarcraft.py:234
+msgid "Progression"
+msgstr "Progressione"
+
+#: cogs/worldofwarcraft.py:235
+msgid "**Uldir **: {progression}"
+msgstr "**Uldir **: {progression}"
+
+#: cogs/worldofwarcraft.py:237
+msgid "iLVL"
+msgstr "iLVL"
+
+#: cogs/worldofwarcraft.py:240
+msgid "Current Mythic+ Score"
+msgstr "Punteggio Mythic+ Corrente"
+
+#: cogs/worldofwarcraft.py:242
+msgid "Last Mythic+ Season Score"
+msgstr "Ultimo Punteggio Stagione Mythic+"
+
+#: cogs/worldofwarcraft.py:256
+msgid "Best Mythic+ Runs"
+msgstr "Migliori Corse Mythic+"
+
+#: cogs/worldofwarcraft.py:278
+msgid "Mythic+ Completed"
+msgstr "Mythic+ Completato"
+
+#: cogs/worldofwarcraft.py:284
+msgid "**STR**: {strength}"
+msgstr "**STR**: {strength}"
+
+#: cogs/worldofwarcraft.py:286
+msgid "**AGI**: {agility}"
+msgstr "**AGI**: {agility}"
+
+#: cogs/worldofwarcraft.py:288
+msgid "**INT**: {intel}"
+msgstr "**INT**: {intel}"
+
+#: cogs/worldofwarcraft.py:289
+msgid "**Crit**: {percent}% {rating}"
+msgstr "**Crit**: {percent}% {rating}"
+
+#: cogs/worldofwarcraft.py:290
+msgid "**Haste**: {percent}% {rating}"
+msgstr "**Haste**: {percent}% {rating}"
+
+#: cogs/worldofwarcraft.py:291
+msgid "**Mastery**: {percent}% {rating}"
+msgstr "**Maestria**: {percent}% {rating}"
+
+#: cogs/worldofwarcraft.py:292
+msgid "**Versatility**: D:{percent_damage} B:{percent_block} ({rating})"
+msgstr "**Versatilità**: D:{percent_damage} B:{percent_block} ({rating})"
+
+#: cogs/worldofwarcraft.py:293
+msgid "Stats"
+msgstr "Statistiche"
+
+#: cogs/worldofwarcraft.py:295 cogs/worldofwarcraft.py:298
+#: cogs/worldofwarcraft.py:301
+msgid "[Click Here]({url})"
+msgstr "[Clicca Qui]({url})"
+
+#: cogs/worldofwarcraft.py:303
+msgid "Information taken from Raider.IO"
+msgstr "Informazioni prese da Raider.IO"
+
+#: cogs/worldofwarcraft.py:314 cogs/worldofwarcraft.py:346
+msgid "The owner of the server needs to configure at least 1 default guild first!"
+msgstr "Il proprietario del server necessita di configurare almeno 1 gilda predefinita prima!"
+
+#: cogs/worldofwarcraft.py:318
+msgid "The guild is not found on WarcraftLogs. Does the guild exist on the website?"
+msgstr "La gilda non si trova su WarcraftLogs. La gilda esiste sul sito web?"
+
+#: cogs/worldofwarcraft.py:327
+msgid "Created by"
+msgstr "Creato da"
+
+#: cogs/worldofwarcraft.py:337
+msgid "The guild {guild_name} got no public logs!"
+msgstr "La gilda {guild_name} non ha registro pubblico!"
+
+#: cogs/worldofwarcraft.py:355
+msgid "The guild is not found on Raider.IO. Does the guild exist on the website?"
+msgstr "La gilda non si trova su Raider.IO. La gilda esiste sul sito web?"
+
+#: cogs/worldofwarcraft.py:360
+msgid "{guild_name}-{server_name} Raid Rankings"
+msgstr "{guild_name}-{server_name} Valutazioni Raid"
+
+#: cogs/worldofwarcraft.py:361
+msgid "Uldir"
+msgstr "Uldir"
+
+#: cogs/worldofwarcraft.py:369
+msgid "To link the bot to your characters, please go to https://legendarybot.info/myself"
+msgstr "Per collegare il bot ai tuoi personaggi, perfavore vai a https://legendarybot.info/myself"
+
+#: cogs/worldofwarcraft.py:379
+msgid "Healing in excess of a target's maximum health is instead converted to a heal absorption effect."
+msgstr "La guarigione in eccesso della salute massima di un obiettivo è invece convertita ad un effetto di assorbimento cura."
+
+#: cogs/worldofwarcraft.py:383
+msgid "Enemies pay far less attention to threat generated by tanks. 80% Threat reduction."
+msgstr "I nemici pagano molta meno attenzione alla minaccia generata dai carri armati. Riduzione dell'80% della minaccia."
+
+#: cogs/worldofwarcraft.py:387
+msgid "While in combat, enemies periodically cause gouts of flame to erupt beneath the feet of distant players."
+msgstr "Mentre combatti, i nemici causano periodicamente fiammate eruttanti tra i piedi dei giocatori distanti."
+
+#: cogs/worldofwarcraft.py:391
+msgid "All enemies' melee attacks apply a stacking blight that inflicts damage over time and reduces healing received."
+msgstr "Tutti gli attacchi in mischia dei nemici si applicano ad un flagello che infligge danno nel tempo e riduce la guarigione ricevuta."
+
+#: cogs/worldofwarcraft.py:395
+msgid "Additional non-boss enemies are present throughout the dungeon."
+msgstr "Nemici non boss aggiuntivi sono presenti per tutto il dungeon."
+
+#: cogs/worldofwarcraft.py:399
+#, python-format
+msgid "Non-boss enemies enrage at 30% health remaining, dealing 100% increased damage until defeated."
+msgstr "I nemici non boss si infuriano al 30% della salute rimanente, infliggendo il 100% dei danni aumentati fino alla sconfitta."
+
+#: cogs/worldofwarcraft.py:403
+msgid "When any non-boss enemy dies, its death cry empowers nearby allies, increasing their maximum health and damage by 20%."
+msgstr "Quando qualsiasi nemico non boss muore, il suo grido di morte potenzia gli alleati nelle vicinanze, aumentando la loro salute massima ed il danno del 20%."
+
+#: cogs/worldofwarcraft.py:407
+msgid "When slain, non-boss enemies leave behind a lingering pool of ichor that heals their allies and damages players."
+msgstr "Quando uccisi, i nemici non boss lasciano dietro di sè una pozza che cura i loro alleati e danneggia i giocatori."
+
+#: cogs/worldofwarcraft.py:411
+#, python-format
+msgid "Boss enemies have 40% more health and inflict up to 15% increased damage."
+msgstr "I boss nemici hanno il 40% di salute in più ed infliggono fino al 15% di danno aumentato."
+
+#: cogs/worldofwarcraft.py:415
+#, python-format
+msgid "Non-boss enemies have 20% more health and inflict up to 30% increased damage."
+msgstr "I nemici non boss hanno il 20% di salute in più ed infliggono fino al 30% di danno aumentato."
+
+#: cogs/worldofwarcraft.py:419
+#, python-format
+msgid "When slain, non-boss enemies explode, causing all players to suffer 10% of their max health in damage over 4 sec. This effect stacks."
+msgstr "Quando ucciso, i nemici non boss esplodono, causando a tutti i giocatori di soffrire il 10% della loro salute massima in danno per oltre 4 secondi. Questo effetto rimane."
+
+#: cogs/worldofwarcraft.py:423
+#, python-format
+msgid "When injured below 90% health, players will suffer increasing damage over time until healed above 90% health."
+msgstr "Quando feriti sotto il 90% di salute, i giocatori soffriranno di danno aumentato nel tempo finchè curati sopra il 90% della salute."
+
+#: cogs/worldofwarcraft.py:427
+msgid "While in combat, enemies periodically summon Explosive Orbs that will detonate if not destroyed."
+msgstr "Mentre in combattimento, i nemici aggiungo Sfere Esplosive periodicamente che si detoneranno se non distrutte."
+
+#: cogs/worldofwarcraft.py:431
+msgid "Periodically, all players emit a shockwave, inflicting damage and interrupting nearby allies."
+msgstr "Periodicamente, tutti i giocatori emettono un'onda d'urto, infliggendo danno ed interrompendo gli alleati nelle vicinanze."
+
+#: cogs/worldofwarcraft.py:435
+msgid "Some non-boss enemies have been infested with a Spawn of G'huun."
+msgstr "Alcuni nemici non-boss sono stati infestati con uno Spawn di G'huun."
+
+#: legendarybot/bot.py:78
+msgid "This command cannot be used in private messages."
+msgstr "Questo comando non può essere usato nei messagi privati."
+
+#: legendarybot/bot.py:80
+msgid "Sorry. This command is disabled and cannot be used."
+msgstr "Mi spiace. Questo comando è disabilitato e non può essere usato."
+
