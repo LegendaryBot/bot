@@ -1,4 +1,4 @@
-aiohttp==3.6.2
+aiohttp==3.8.0
 async-timeout==3.0.0
 attrs==18.1.0
 Babel==2.6.0
@@ -44,3 +44,4 @@ urllib3==1.23
 websockets==6.0
 yarl==1.2.6
 youtube-dl==2019.11.22
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
