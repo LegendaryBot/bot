@@ -44,3 +44,4 @@ urllib3==1.23
 websockets==6.0
 yarl==1.2.6
 youtube-dl==2019.11.22
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
