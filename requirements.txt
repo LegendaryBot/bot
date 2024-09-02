@@ -14,7 +14,7 @@ Django==2.1.2
 django-bootstrap4==0.0.6
 django-sslserver==0.20
 docutils==0.14
-gunicorn==19.9.0
+gunicorn==21.2.0
 idna==2.7
 idna-ssl==1.1.0
 influxdb==5.2.3
